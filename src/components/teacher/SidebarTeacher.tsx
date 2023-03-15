@@ -1,10 +1,10 @@
-import { sidebarItemAdmin } from "@/constant/sidebarConstant";
+import { sidebarItemTeacher } from "@/constant/sidebarConstant";
 import React from "react";
 
-const SidebarAdmin = () => {
+const SidebarTeacher = () => {
   const data = {
     name: "Hoa Nguyen",
-    role: "Admin",
+    role: "Teacher",
   };
 
   return (
@@ -13,11 +13,11 @@ const SidebarAdmin = () => {
         <h1 className="text-2xl">{data.name}</h1>
         <p className="text-base font-bold">{data.role}</p>
       </div>
-      {sidebarItemAdmin.map((item) => (
+      {sidebarItemTeacher.map((item) => (
         <p key={item.id}>{item.name} </p>
       ))}
     </div>
   );
 };
 
-export default SidebarAdmin;
+export default SidebarTeacher;
