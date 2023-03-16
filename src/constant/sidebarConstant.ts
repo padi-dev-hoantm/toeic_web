@@ -1,23 +1,33 @@
+import { routerConstant } from "./routerConstant"
+
 export const sidebarItemAdmin = [
     {
         id: 1,
         name: 'Dash board',
-        icon: ''
+        icon: '',
+        currentMenu: 'dashboard',
+        router: routerConstant.admin.dashboard
     }, 
     {
         id: 2,
         name: 'List teacher',
-        icon: ''
+        icon: '',
+        currentMenu: 'listTeacher',
+        router: routerConstant.admin.teacher
     },
     {
         id: 3,
         name: 'Exam test',
-        icon: ''
+        icon: '',
+        currentMenu: 'exam',
+        router: ""
     }, 
     {
         id: 4,
         name: 'Question',
-        icon: ''
+        icon: '',
+        currentMenu: 'question',
+        router: ""
     }
 ]
 

@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.side-active {
+    background-color: lightsteelblue;
+    font-weight: bold;
+    border-right: 5px solid #2467ae;
+}

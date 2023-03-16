@@ -19,7 +19,7 @@ const HomeView = () => {
         />
       </div>
       <div className="ml-[100px] text-center">
-        <h1 className="text-4xl mb-[50px]">Sign up for ADMIN:</h1>
+        <h1 className="text-4xl mb-[50px]">Sign up:</h1>
         <Button
           text="Login"
           onClick={() => router.push(routerConstant.login)}
