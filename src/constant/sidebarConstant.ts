@@ -13,7 +13,7 @@ export const sidebarItemAdmin = [
         name: 'List teacher',
         icon: '',
         currentMenu: 'listTeacher',
-        router: routerConstant.admin.teacher
+        router: routerConstant.admin.teacher.index
     },
     {
         id: 3,

@@ -15,7 +15,14 @@ export interface IFormPropsCustomInput extends InputProps {
     isRequired?: boolean;
 }
 
-  export interface IFormLogin {
+export interface IFormLogin {
     email: string
     password: string
+}
+
+export interface ITeacher{
+  id: number;
+  email: string;
+  name: string;
+  level: string;
 }
