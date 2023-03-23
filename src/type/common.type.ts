@@ -21,8 +21,16 @@ export interface IFormLogin {
 }
 
 export interface ITeacher{
-  id: number;
+  id?: number;
   email: string;
   name: string;
   level: string;
+}
+
+export interface ISchedule{
+  id?: number;
+  created_at?: string;
+  exam_name?: string;
+  exam_start_time?: string;
+  exam_end_time?: string;
 }

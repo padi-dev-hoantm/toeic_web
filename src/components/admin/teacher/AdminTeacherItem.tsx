@@ -7,7 +7,7 @@ import { routerConstant } from "@/constant/routerConstant";
 
 export const AdminTeacherItem = ({ id, name, email, level }: ITeacher) => {
   return (
-    <div className="flex py-5 items-center">
+    <div className="flex p-5 items-center my-[30px] box-shadow-item rounded-md	">
       <Image
         src="/img/home-img.png"
         width={100}
@@ -22,8 +22,8 @@ export const AdminTeacherItem = ({ id, name, email, level }: ITeacher) => {
         </span>
         <span>{email}</span>
       </p>
-      <Link href={routerConstant.admin.teacher.exam(1)}>
-        <Button text="Add" />
+      <Link href={routerConstant.admin.teacher.exam(Number(id))}>
+        <Button text="Chi tiết" />
       </Link>
     </div>
   );

@@ -3,7 +3,7 @@ import Head from "next/head";
 import React, { ReactNode } from "react";
 import Footer from "../common/Footer";
 import Header from "../common/Header";
-import SidebarAdmin from "../admin/SidebarAdmin";
+import SidebarAdmin from "../admin/common/SidebarAdmin";
 
 type Props = {
   children: ReactNode;
@@ -17,9 +17,9 @@ const LayoutBasic: NextPage<Props> = ({ children, title }) => {
       </Head>
       <div>
         <Header />
-        <div className="flex w-full min-h-screen bg-[#FFFFFF] layout-seller flex-wrap">
+        <div className="flex w-full min-h-screen bg-[#FFFFFF] layout-seller flex-wrap ">
           <SidebarAdmin />
-          {children}
+          <div className="flex-1">{children}</div>
         </div>
         <Footer />
       </div>

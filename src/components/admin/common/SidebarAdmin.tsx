@@ -11,7 +11,7 @@ const SidebarAdmin = () => {
   const currentMenuItem = useCurrentMenuItemState();
 
   return (
-    <div className="bg-[#FAFAFA] w-[280px] left-0 h-full pl-3 mr-[5%]">
+    <div className="bg-[#FAFAFA] w-[280px] left-0 h-full pl-3 mr-[5%]  drop-shadow-2xl">
       <div>
         <h1 className="text-2xl">{data.name}</h1>
         <p className="text-base font-bold">{data.role}</p>
@@ -19,8 +19,10 @@ const SidebarAdmin = () => {
       <div className="flex flex-col">
         {sidebarItemAdmin.map((item) => (
           <Link
-            className={`p-2 ${
-              currentMenuItem === item.currentMenu ? "side-active" : ""
+            className={`p-2 my-2 ${
+              currentMenuItem === item.currentMenu
+                ? "side-active"
+                : "hover:bg-[lightsteelblue]"
             }`}
             href={item.router}
             key={item.id}

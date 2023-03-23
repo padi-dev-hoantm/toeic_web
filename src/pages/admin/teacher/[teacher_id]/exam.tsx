@@ -3,6 +3,7 @@ import { currentMenuItemState } from "@/recoil/side-bar.recoil";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { DummyData } from "@/untils/fakeData";
+import AdminTeacherExamView from "@/view/admin/teacher/AdminTeacherExamView";
 
 const AdminTeacherAdminTeacher = () => {
   const setCurrentMenuItem = useSetRecoilState(currentMenuItemState);
@@ -12,8 +13,7 @@ const AdminTeacherAdminTeacher = () => {
   const teacher = DummyData;
   return (
     <LayoutAdmin title="Teacher exam">
-      <h1>{teacher[0].name}</h1>
-      <p>Trình độ: {teacher[0].level} </p>
+      <AdminTeacherExamView />
     </LayoutAdmin>
   );
 };

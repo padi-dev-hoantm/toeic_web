@@ -17,17 +17,17 @@ export const sidebarItemAdmin = [
     },
     {
         id: 3,
-        name: 'Exam test',
+        name: 'Schedule exam',
         icon: '',
         currentMenu: 'exam',
-        router: ""
+        router: routerConstant.admin.exam.index
     }, 
     {
         id: 4,
         name: 'Question',
         icon: '',
         currentMenu: 'question',
-        router: ""
+        router: routerConstant.admin.question.index
     }
 ]
 

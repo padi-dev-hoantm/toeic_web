@@ -48,3 +48,41 @@ export const DummyData = [
         "level": "PGS.TS"
     }
 ]
+
+export const ScheduleFakeData = [
+    {
+        "created_at": "1/1/2023",
+        "id": 1,
+        "exam_name": "Thi Toeic 1",
+        "exam_start_time":  "1/1/2023",
+        "exam_end_time":  "1/1/2023",
+    },
+    {
+        "created_at": "1/1/2023",
+        "id": 2,
+        "exam_name": "Thi Toeic 1",
+        "exam_start_time":  "1/1/2023",
+        "exam_end_time":  "1/1/2023",
+    },
+    {
+        "created_at": "1/1/2023",
+        "id": 3,
+        "exam_name": "Thi Toeic 1",
+        "exam_start_time":  "1/1/2023",
+        "exam_end_time":  "1/1/2023",
+    },
+    {
+        "created_at": "1/1/2023",
+        "id": 4,
+        "exam_name": "Thi Toeic 1",
+        "exam_start_time":  "1/1/2023",
+        "exam_end_time":  "1/1/2023",
+    },
+    {
+        "created_at": "1/1/2023",
+        "id": 5,
+        "exam_name": "Thi Toeic 1",
+        "exam_start_time":  "1/1/2023",
+        "exam_end_time":  "1/1/2023",
+    },
+]

@@ -1,20 +1,20 @@
 import LayoutAdmin from "@/components/layouts/LayoutAdmin";
 import { currentMenuItemState } from "@/recoil/side-bar.recoil";
-import AdminDashboardView from "@/view/admin/dashboard/AdminDashboardView";
-import React, { useEffect } from "react";
+import AdminExamView from "@/view/admin/exam/AdminExamView";
+import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 
-const AdminDashboard = () => {
+const ScheduleExam = () => {
   const setCurrentMenuItem = useSetRecoilState(currentMenuItemState);
   useEffect(() => {
-    setCurrentMenuItem("dashboard");
+    setCurrentMenuItem("exam");
   }, []);
 
   return (
-    <LayoutAdmin title="Admin">
-      <AdminDashboardView />
+    <LayoutAdmin title="Schedule exam">
+      <AdminExamView />
     </LayoutAdmin>
   );
 };
 
-export default AdminDashboard;
+export default ScheduleExam;

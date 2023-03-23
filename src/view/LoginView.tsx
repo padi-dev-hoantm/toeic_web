@@ -1,5 +1,6 @@
 import Button from "@/components/common/Button";
 import CustomInput from "@/components/common/Input";
+import { REGEX_EMAIL } from "@/constant/constant";
 import { routerConstant } from "@/constant/routerConstant";
 import { IFormLogin } from "@/type/common.type";
 import { useRouter } from "next/router";
@@ -17,6 +18,7 @@ const LoginView = () => {
     mode: "onChange",
   });
   const handleLogin: SubmitHandler<IFormLogin> = async (value) => {
+    console.log("value", value);
     router.push(routerConstant.admin.index);
   };
   return (
@@ -28,7 +30,11 @@ const LoginView = () => {
           control={control}
           placeholder="email"
           rules={{
-            required: { value: true, message: "This field is required" },
+            required: { value: true, message: "Đây là bắt buộc" },
+            pattern: {
+              value: REGEX_EMAIL,
+              message: "Email chưa đúng định dạng",
+            },
           }}
           message={errors && errors.email && errors.email.message}
         />
@@ -38,7 +44,11 @@ const LoginView = () => {
           control={control}
           placeholder="password"
           rules={{
-            required: { value: true, message: "This field is required" },
+            required: { value: true, message: "Đây là bắt buộc" },
+            minLength: {
+              value: 6,
+              message: "Mật khẩu phải lớn hơn 6 kí tự",
+            },
           }}
           message={errors && errors.password && errors.password.message}
         />
