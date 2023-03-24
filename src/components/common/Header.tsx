@@ -1,7 +1,7 @@
 import React from "react";
-import Button from "./Button";
 import { useRouter } from "next/router";
 import { routerConstant } from "@/constant/routerConstant";
+import CustomButton from "./Button";
 
 const Header = () => {
   const router = useRouter();
@@ -10,9 +10,9 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between items-center h-[160px] bg-[#56a4fe] box-shadow-item">
       <img src="https://sis.utc.edu.vn/logo.png" alt="logo UTC" />
-      <Button onClick={() => handleClick()} text="Logout" />
+      <CustomButton onClick={() => handleClick()} text="Logout" />
     </div>
   );
 };

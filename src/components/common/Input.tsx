@@ -1,7 +1,6 @@
-import { Input } from "antd";
 import { Controller } from "react-hook-form";
 import LabelRequired from "./LabelRequired";
-import { IFormPropsCustomInput } from "@/type/common.type";
+import { TextField } from "@mui/material";
 
 const CustomInput = ({
   control,
@@ -11,7 +10,7 @@ const CustomInput = ({
   label,
   isRequired = false,
   ...rest
-}: IFormPropsCustomInput) => {
+}: any) => {
   return (
     <div className="flex flex-col">
       <LabelRequired isRequired={isRequired} name={name} label={label} />
@@ -25,7 +24,7 @@ const CustomInput = ({
               message ? "border-red-400" : "border-gray-400"
             }`}
           >
-            <Input
+            <TextField
               {...rest}
               className="w-full"
               bordered={false}

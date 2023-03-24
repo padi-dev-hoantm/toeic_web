@@ -2,7 +2,7 @@ import { ISchedule } from "@/type/common.type";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-import Button from "@/components/common/Button";
+import CustomButton from "@/components/common/Button";
 import { routerConstant } from "@/constant/routerConstant";
 
 export const AdminExamItem = ({
@@ -17,7 +17,7 @@ export const AdminExamItem = ({
         <p>Bài thi bắt đầu lúc: {exam_start_time}</p>
       </div>
       <Link href={routerConstant.admin.exam.edit(Number(id))}>
-        <Button text="Chi tiết" />
+        <CustomButton text="Chi tiết" />
       </Link>
     </div>
   );

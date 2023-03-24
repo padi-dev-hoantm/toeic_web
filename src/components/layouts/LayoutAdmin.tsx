@@ -4,11 +4,15 @@ import React, { ReactNode } from "react";
 import Footer from "../common/Footer";
 import Header from "../common/Header";
 import SidebarAdmin from "../admin/common/SidebarAdmin";
+import { Box, Grid } from "@mui/material";
+import Paper from "@mui/material/Paper";
+import { styled } from "@mui/material/styles";
 
 type Props = {
   children: ReactNode;
   title: string;
 };
+
 const LayoutBasic: NextPage<Props> = ({ children, title }) => {
   return (
     <>
@@ -17,10 +21,16 @@ const LayoutBasic: NextPage<Props> = ({ children, title }) => {
       </Head>
       <div>
         <Header />
-        <div className="flex w-full min-h-screen bg-[#FFFFFF] layout-seller flex-wrap ">
-          <SidebarAdmin />
-          <div className="flex-1">{children}</div>
-        </div>
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container>
+            <Grid item xs={2} className="shadow-sidebar mr-[3%]">
+              <SidebarAdmin />
+            </Grid>
+            <Grid item xs={9}>
+              {children}
+            </Grid>
+          </Grid>
+        </Box>
         <Footer />
       </div>
     </>

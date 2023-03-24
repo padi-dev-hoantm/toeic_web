@@ -11,7 +11,7 @@ const SidebarAdmin = () => {
   const currentMenuItem = useCurrentMenuItemState();
 
   return (
-    <div className="bg-[#FAFAFA] w-[280px] left-0 h-full pl-3 mr-[5%]  drop-shadow-2xl">
+    <div className="bg-[#FAFAFA] left-0 h-full pl-3 mr-[5%] h-screen pt-[30px]">
       <div>
         <h1 className="text-2xl">{data.name}</h1>
         <p className="text-base font-bold">{data.role}</p>

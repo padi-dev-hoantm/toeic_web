@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Button from "@/components/common/Button";
+import CustomButton from "@/components/common/Button";
 import { useRouter } from "next/router";
 import { routerConstant } from "@/constant/routerConstant";
 

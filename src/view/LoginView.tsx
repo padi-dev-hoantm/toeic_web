@@ -1,4 +1,4 @@
-import Button from "@/components/common/Button";
+import CustomButton from "@/components/common/Button";
 import CustomInput from "@/components/common/Input";
 import { REGEX_EMAIL } from "@/constant/constant";
 import { routerConstant } from "@/constant/routerConstant";
@@ -19,7 +19,7 @@ const LoginView = () => {
   });
   const handleLogin: SubmitHandler<IFormLogin> = async (value) => {
     console.log("value", value);
-    router.push(routerConstant.admin.index);
+    router.push(routerConstant.admin.dashboard);
   };
   return (
     <div>
@@ -52,7 +52,7 @@ const LoginView = () => {
           }}
           message={errors && errors.password && errors.password.message}
         />
-        <Button type="submit" text="Login" />
+        <CustomButton type="submit" text="Đăng nhập" />
       </form>
     </div>
   );

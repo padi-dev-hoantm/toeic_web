@@ -2,12 +2,12 @@ import { ITeacher } from "@/type/common.type";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-import Button from "@/components/common/Button";
+import CustomButton from "@/components/common/Button";
 import { routerConstant } from "@/constant/routerConstant";
 
 export const AdminTeacherItem = ({ id, name, email, level }: ITeacher) => {
   return (
-    <div className="flex p-5 items-center my-[30px] box-shadow-item rounded-md	">
+    <div className="flex p-5 items-center my-[30px]  rounded-md	box-shadow-item">
       <Image
         src="/img/home-img.png"
         width={100}
@@ -23,7 +23,7 @@ export const AdminTeacherItem = ({ id, name, email, level }: ITeacher) => {
         <span>{email}</span>
       </p>
       <Link href={routerConstant.admin.teacher.exam(Number(id))}>
-        <Button text="Chi tiết" />
+        <CustomButton text="Chi tiết" />
       </Link>
     </div>
   );

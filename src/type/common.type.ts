@@ -1,11 +1,10 @@
-import { InputProps } from 'antd';
 import {
     Control, RegisterOptions,
     UseFormGetValues,
     UseFormSetValue
   } from 'react-hook-form';
   
-export interface IFormPropsCustomInput extends InputProps {
+export interface IFormPropsCustomInput  {
     name: string;
     message?: string;
     control: Control<any, any>;

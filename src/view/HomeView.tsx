@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Button from "@/components/common/Button";
+import CustomButton from "@/components/common/Button";
 import { useRouter } from "next/router";
 import { routerConstant } from "@/constant/routerConstant";
 
@@ -14,13 +14,13 @@ const HomeView = () => {
           alt=""
           width={1000}
           height={500}
-          className="aspect-video	"
+          className="aspect-video	h-screen"
           objectFit="cover"
         />
       </div>
       <div className="ml-[100px] text-center">
         <h1 className="text-4xl mb-[50px]">Sign up:</h1>
-        <Button
+        <CustomButton
           text="Login"
           onClick={() => router.push(routerConstant.login)}
         />
