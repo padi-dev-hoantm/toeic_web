@@ -12,7 +12,6 @@ const Header = () => {
   return (
     <div className="flex justify-between items-center h-[160px] bg-[#56a4fe] box-shadow-item">
       <img src="https://sis.utc.edu.vn/logo.png" alt="logo UTC" />
-      <CustomButton onClick={() => handleClick()} text="Logout" />
     </div>
   );
 };

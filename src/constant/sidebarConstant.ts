@@ -28,6 +28,13 @@ export const sidebarItemAdmin = [
         icon: '',
         currentMenu: 'question',
         router: routerConstant.admin.question.index
+    },
+    {
+        id: 5,
+        name: 'Logout',
+        icon: '',
+        currentMenu: 'Logout',
+        router: routerConstant.home
     }
 ]
 

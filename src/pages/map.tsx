@@ -7,6 +7,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import parse from "autosuggest-highlight/parse";
 import { debounce } from "@mui/material/utils";
+import axios from "axios";
 
 // This key was created specifically for the demo in mui.com.
 // You need to create a new one for your application.
@@ -38,6 +39,7 @@ interface StructuredFormatting {
 interface PlaceType {
   description: string;
   structured_formatting: StructuredFormatting;
+  place_id: string;
 }
 
 export default function GoogleMaps() {
@@ -113,6 +115,18 @@ export default function GoogleMaps() {
       active = false;
     };
   }, [value, inputValue, fetch]);
+
+  React.useEffect(() => {
+    let url = `https://maps.googleapis.com/maps/api/geocode/json?place_id=${value?.place_id}&key=${GOOGLE_MAPS_API_KEY}`;
+    axios
+      .get(url)
+      .then((res) => {
+        console.log("url", res);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  }, [value?.place_id]);
 
   return (
     <Autocomplete

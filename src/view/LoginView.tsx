@@ -22,13 +22,13 @@ const LoginView = () => {
     router.push(routerConstant.admin.dashboard);
   };
   return (
-    <div>
-      <form onClick={handleSubmit(handleLogin)}>
+    <div className="px-[30%] mt-[15%] text-center">
+      <form onClick={handleSubmit(handleLogin)} className="">
         <CustomInput
-          label="email"
+          label="Email:"
           name="email"
           control={control}
-          placeholder="email"
+          placeholder="email@gmail.com"
           rules={{
             required: { value: true, message: "Đây là bắt buộc" },
             pattern: {
@@ -39,10 +39,10 @@ const LoginView = () => {
           message={errors && errors.email && errors.email.message}
         />
         <CustomInput
-          label="password"
+          label="Mật khẩu:"
           name="password"
           control={control}
-          placeholder="password"
+          placeholder="******"
           rules={{
             required: { value: true, message: "Đây là bắt buộc" },
             minLength: {
@@ -52,7 +52,9 @@ const LoginView = () => {
           }}
           message={errors && errors.password && errors.password.message}
         />
-        <CustomButton type="submit" text="Đăng nhập" />
+        <div className="mt-[20px] ">
+          <CustomButton type="submit" text="Đăng nhập" />
+        </div>
       </form>
     </div>
   );
