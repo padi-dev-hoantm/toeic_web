@@ -7,11 +7,10 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import parse from "autosuggest-highlight/parse";
 import { debounce } from "@mui/material/utils";
-import axios from "axios";
 
 // This key was created specifically for the demo in mui.com.
 // You need to create a new one for your application.
-const GOOGLE_MAPS_API_KEY = "AIzaSyBaM6UdMkn6cEBI27Fq8o6eSMV6s91f29Q";
+const GOOGLE_MAPS_API_KEY = "AIzaSyC3aviU6KHXAjoSnxcw6qbOhjnFctbxPkE";
 
 function loadScript(src: string, position: HTMLElement | null, id: string) {
   if (!position) {
@@ -26,7 +25,7 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
 }
 
 const autocompleteService = { current: null };
-
+// let autocomplete: any;
 interface MainTextMatchedSubstrings {
   offset: number;
   length: number;
@@ -39,7 +38,6 @@ interface StructuredFormatting {
 interface PlaceType {
   description: string;
   structured_formatting: StructuredFormatting;
-  place_id: string;
 }
 
 export default function GoogleMaps() {
@@ -60,73 +58,65 @@ export default function GoogleMaps() {
     loaded.current = true;
   }
 
-  const fetch = React.useMemo(
-    () =>
-      debounce(
-        (
-          request: { input: string },
-          callback: (results?: readonly PlaceType[]) => void
-        ) => {
-          (autocompleteService.current as any).getPlacePredictions(
-            request,
-            callback
-          );
-        },
-        400
-      ),
-    []
-  );
+  // const fetch = React.useMemo(
+  //   () =>
+  //     debounce(
+  //       (
+  //         request: { input: string },
+  //         callback: (results?: readonly PlaceType[]) => void
+  //       ) => {
+  //         (autocompleteService.current as any).getPlace(request, callback);
+  //       },
+  //       400
+  //     ),
+  //   []
+  // );
+  const listOption = {
+    componentRestrictions: { country: "ng" },
+    fields: ["address_components", "geometry", "icon", "name"],
+    types: ["establishment"],
+  };
 
   React.useEffect(() => {
     let active = true;
 
-    if (!autocompleteService.current && (window as any).google) {
-      autocompleteService.current = new (
-        window as any
-      ).google.maps.places.AutocompleteService();
-    }
-    if (!autocompleteService.current) {
-      return undefined;
-    }
+    // if (!autocomplete.current && (window as any).google) {
+    if (!(window as any).google) return;
+    const autocomplete = new (window as any).google.maps.places.Autocomplete(
+      inputValue,
+      listOption
+    );
+    // }
+    // if (!autocomplete.current) {
+    //   return undefined;
+    // }
 
     if (inputValue === "") {
       setOptions(value ? [value] : []);
       return undefined;
     }
+    const place = autocomplete.getPlace();
+    console.log(place);
+    // fetch({ input: inputValue }, (results?: readonly PlaceType[]) => {
+    //   if (active) {
+    //     let newOptions: readonly PlaceType[] = [];
 
-    fetch({ input: inputValue }, (results?: readonly PlaceType[]) => {
-      if (active) {
-        let newOptions: readonly PlaceType[] = [];
+    //     if (value) {
+    //       newOptions = [value];
+    //     }
 
-        if (value) {
-          newOptions = [value];
-        }
+    //     if (results) {
+    //       newOptions = [...newOptions, ...results];
+    //     }
 
-        if (results) {
-          newOptions = [...newOptions, ...results];
-        }
-
-        setOptions(newOptions);
-        console.log("option", newOptions);
-      }
-    });
+    //     setOptions(newOptions);
+    //   }
+    // });
 
     return () => {
       active = false;
     };
   }, [value, inputValue, fetch]);
-
-  React.useEffect(() => {
-    let url = `https://maps.googleapis.com/maps/api/geocode/json?place_id=${value?.place_id}&key=${GOOGLE_MAPS_API_KEY}`;
-    axios
-      .get(url)
-      .then((res) => {
-        console.log("url", res);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-  }, [value?.place_id]);
 
   return (
     <Autocomplete
