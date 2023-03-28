@@ -26,7 +26,6 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
 
 export default function Map() {
   const loaded = useRef(false);
-  let autocomplete = { current: null };
   if (typeof window !== "undefined" && !loaded.current) {
     if (!document.querySelector("#google-maps")) {
       loadScript(
@@ -38,45 +37,57 @@ export default function Map() {
 
     loaded.current = true;
   }
-  const [inputValue, setInputValue] = useState("");
-  const [value, setValue] = useState(null);
-  const [options, setOptions] = useState([]);
-
   const listOption = {
-    componentRestrictions: { country: "ng" },
     fields: ["address_components", "geometry", "icon", "name"],
     types: ["establishment"],
   };
 
-  console.log("inputValue", inputValue);
-
-  // useEffect(() => {}, []);
-  // const autoCompleteRef = useRef<any>();
-  // const inputRef = useRef();
-  // const listOptions = {
-  //   componentRestrictions: { country: "ng" },
-  //   fields: ["address_components", "geometry", "icon", "name"],
-  //   types: ["establishment"],
-  // };
-  const autoCompleteRef = useRef<any>();
-  const inputRef = useRef();
+  const placeInputRef = useRef(null);
+  const [place, setPlace] = useState(null);
 
   useEffect(() => {
+    initPlaceAPI();
+  }, []);
+
+  // initialize the google place autocomplete
+  const initPlaceAPI = () => {
     if (!(window as any).google) return;
 
-    autoCompleteRef.current = new (
-      window as any
-    ).google.maps.places.Autocomplete(inputRef.current, listOption);
-
-    autoCompleteRef.current.addListener("place_changed", async function () {
-      const place = await autoCompleteRef.current.getPlace();
-      console.log({ place });
+    let autocomplete = new (window as any).google.maps.places.Autocomplete(placeInputRef.current, listOption);
+    new (window as any).google.maps.event.addListener(autocomplete, "place_changed", function () {
+      let place = autocomplete.getPlace();
+      // setPlace(place);
     });
-  }, []);
+  };
+  console.log(111, place)
+
   return (
     <div>
-      <label>enter address :</label>
-      <input ref={inputRef} />
+      <input type="text" ref={placeInputRef} />
+      {place && <div style={{ marginTop: 20, lineHeight: '25px' }}>
+        <div style={{ marginBottom: 10 }}><b>Selected Place</b></div>
+        <div><b>Address:</b> {place}</div>
+        <Autocomplete 
+         id="google-map-demo"
+         sx={{ width: 300 }}
+         getOptionLabel={(option) =>
+           typeof option === "string" ? option : option.description
+         }
+         filterOptions={(x) => x}
+         options={place}
+         autoComplete
+         includeInputInList
+         filterSelectedOptions
+         noOptionsText="No locations"
+         onChange={(event: any, newValue: PlaceType | null) => {
+           setOptions(newValue ? [newValue, ...options] : options);
+           setValue(newValue);
+         }}
+         onInputChange={(event, newInputValue) => {
+          setPlace(place);
+         }}
+        />
+      </div>}
     </div>
   );
 }
