@@ -53,41 +53,54 @@ export default function Map() {
   const initPlaceAPI = () => {
     if (!(window as any).google) return;
 
-    let autocomplete = new (window as any).google.maps.places.Autocomplete(placeInputRef.current, listOption);
-    new (window as any).google.maps.event.addListener(autocomplete, "place_changed", function () {
-      let place = autocomplete.getPlace();
-      // setPlace(place);
-    });
+    let autocomplete = new (window as any).google.maps.places.Autocomplete(
+      placeInputRef.current,
+      listOption
+    );
+    new (window as any).google.maps.event.addListener(
+      autocomplete,
+      "place_changed",
+      function () {
+        let place = autocomplete.getPlace();
+        setPlace(place);
+      }
+    );
   };
-  console.log(111, place)
+  console.log(111, place);
 
   return (
     <div>
       <input type="text" ref={placeInputRef} />
-      {place && <div style={{ marginTop: 20, lineHeight: '25px' }}>
-        <div style={{ marginBottom: 10 }}><b>Selected Place</b></div>
-        <div><b>Address:</b> {place}</div>
-        <Autocomplete 
-         id="google-map-demo"
-         sx={{ width: 300 }}
-         getOptionLabel={(option) =>
-           typeof option === "string" ? option : option.description
-         }
-         filterOptions={(x) => x}
-         options={place}
-         autoComplete
-         includeInputInList
-         filterSelectedOptions
-         noOptionsText="No locations"
-         onChange={(event: any, newValue: PlaceType | null) => {
-           setOptions(newValue ? [newValue, ...options] : options);
-           setValue(newValue);
-         }}
-         onInputChange={(event, newInputValue) => {
-          setPlace(place);
-         }}
-        />
-      </div>}
+      {place && (
+        <div style={{ marginTop: 20, lineHeight: "25px" }}>
+          <div style={{ marginBottom: 10 }}>
+            <b>Selected Place</b>
+          </div>
+          <div>
+            <b>Address:</b> {place}
+          </div>
+          {/* <Autocomplete
+            id="google-map-demo"
+            sx={{ width: 300 }}
+            getOptionLabel={(option) =>
+              typeof option === "string" ? option : option.description
+            }
+            filterOptions={(x) => x}
+            options={place}
+            autoComplete
+            includeInputInList
+            filterSelectedOptions
+            noOptionsText="No locations"
+            onChange={(event: any, newValue: PlaceType | null) => {
+              setOptions(newValue ? [newValue, ...options] : options);
+              setValue(newValue);
+            }}
+            onInputChange={(event, newInputValue) => {
+              setPlace(place);
+            }}
+          /> */}
+        </div>
+      )}
     </div>
   );
 }

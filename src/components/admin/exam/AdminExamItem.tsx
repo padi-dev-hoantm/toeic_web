@@ -11,7 +11,7 @@ export const AdminExamItem = ({
   exam_start_time,
 }: ISchedule) => {
   return (
-    <div className="p-5 items-center my-[30px] box-shadow-item rounded-md	">
+    <div className="p-5 items-center my-[30px] box-shadow-item rounded-md	flex justify-between">
       <div className="mr-[30%] ">
         <p>Bài thi: {exam_name}</p>
         <p>Bài thi bắt đầu lúc: {exam_start_time}</p>

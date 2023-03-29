@@ -4,7 +4,7 @@ import AdminExamView from "@/view/admin/exam/AdminExamView";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 
-const ScheduleExam = () => {
+const AdminScheduleExam = () => {
   const setCurrentMenuItem = useSetRecoilState(currentMenuItemState);
   useEffect(() => {
     setCurrentMenuItem("exam");
@@ -17,4 +17,4 @@ const ScheduleExam = () => {
   );
 };
 
-export default ScheduleExam;
+export default AdminScheduleExam;

@@ -30,6 +30,8 @@ export interface ISchedule{
   id?: number;
   created_at?: string;
   exam_name?: string;
+  exam_description?: string;
   exam_start_time?: string;
   exam_end_time?: string;
 }
+

@@ -8,7 +8,8 @@ export const routerConstant = {
       },
       exam: {
         index: "/admin/schedule-exam",
-        edit: (exam_id: number) => `/admin/schedule-exam/${exam_id}`
+        edit: (exam_id: number) => `/admin/schedule-exam/${exam_id}`,
+        create: "/admin/schedule-exam/create"
       }, 
       question: {
         index: "/admin/question"

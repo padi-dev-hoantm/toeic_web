@@ -20,3 +20,6 @@
 .parent-text  .css-1d3z3hw-MuiOutlinedInput-notchedOutline{
     border: none;
 }
+.autoComplete .css-17vbkzs-MuiFormControl-root-MuiTextField-root{
+    margin: 0;
+}
