@@ -36,12 +36,14 @@ const LoginView = () => {
               message: "Email chưa đúng định dạng",
             },
           }}
+          errors={errors}
           message={errors && errors.email && errors.email.message}
         />
         <CustomInput
           label="Mật khẩu:"
           name="password"
           control={control}
+          errors={errors}
           placeholder="******"
           rules={{
             required: { value: true, message: "Đây là bắt buộc" },

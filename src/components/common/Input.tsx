@@ -1,6 +1,7 @@
 import { Controller } from "react-hook-form";
 import LabelRequired from "./LabelRequired";
 import { TextField } from "@mui/material";
+import { ErrorMessage } from "@hookform/error-message";
 
 const CustomInput = ({
   control,
@@ -8,6 +9,7 @@ const CustomInput = ({
   rules,
   message,
   label,
+  errors,
   isRequired = false,
   ...rest
 }: any) => {
@@ -35,9 +37,13 @@ const CustomInput = ({
           </div>
         )}
       />
-      {message ? (
-        <span className="text-left text-xs text-red-400 mt-1">{message}</span>
-      ) : null}
+      <ErrorMessage
+        errors={errors}
+        name={name}
+        render={({ message }) => (
+          <p className="text-left text-red-400">{message}</p>
+        )}
+      />
     </div>
   );
 };

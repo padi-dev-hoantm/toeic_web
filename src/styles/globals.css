@@ -14,12 +14,22 @@
 .shadow-sidebar{
     box-shadow: 15px 0px 15px -20px rgba(0,0,0,0.75);
 }
-.parent-text .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
-    height: 10px;
-}
-.parent-text  .css-1d3z3hw-MuiOutlinedInput-notchedOutline{
+
+/* .parent-text  .css-1d3z3hw-MuiOutlinedInput-notchedOutline{
     border: none;
-}
+} */
 .autoComplete .css-17vbkzs-MuiFormControl-root-MuiTextField-root{
     margin: 0;
+}
+.css-6ffsbr-MuiAutocomplete-root {
+    width: 100%;
+}
+
+.css-1u3bzj6-MuiFormControl-root-MuiTextField-root{
+    width: 100%;
+}
+
+.text-field .css-ahj2mt-MuiTypography-root{
+    width: 100%;
+
 }

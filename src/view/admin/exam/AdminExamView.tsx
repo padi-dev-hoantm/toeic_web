@@ -4,15 +4,20 @@ import { AdminExamItem } from "@/components/admin/exam/AdminExamItem";
 import CustomButton from "@/components/common/Button";
 import Link from "next/link";
 import { routerConstant } from "@/constant/routerConstant";
+import { Label } from "@/components/common/Label";
+import { Title } from "@/components/common/Title";
 
 const AdminExamView = () => {
   const exams = ScheduleFakeData;
 
   return (
     <div className="mt-[20px]">
-      <Link href={routerConstant.admin.exam.create}>
-        <CustomButton text="Tạo mới" />
-      </Link>
+      <div className="flex items-center	px-5 justify-between">
+        <Title text="Danh sách bài thi" />
+        <Link href={routerConstant.admin.exam.create}>
+          <CustomButton text="Tạo mới" />
+        </Link>
+      </div>
       {exams.map((exam) => (
         <div key={exam.id}>
           <AdminExamItem

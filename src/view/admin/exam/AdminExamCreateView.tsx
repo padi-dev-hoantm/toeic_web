@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { ScheduleFakeData } from "@/untils/fakeData";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TextField, Autocomplete } from "@mui/material";
@@ -77,6 +75,7 @@ const AdminExamCreateView = () => {
         label="Bài thi:"
         name="exam_description"
         control={control}
+        errors={errors}
         rules={{
           required: { value: true, message: "Đây là bắt buộc" },
         }}
@@ -85,20 +84,26 @@ const AdminExamCreateView = () => {
         }
       />
       <Label text="Chọn ngày và giờ thi: " />
-      <div className="flex flex-wrap gap-[20px]">
+      <div>
         <Controller
           control={control}
           name="exam_start_time"
           render={() => (
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DateTimePicker
-                className="w-full"
-                format="YYYY-MM-DD HH:mm:ss"
-                onChange={(value: any) =>
-                  handleChangeDatetime("exam_start_time", value)
-                }
-              />
-            </LocalizationProvider>
+            <div
+              className={`rounded-md border ${
+                errors.exam_start_time ? "border-red-400" : "border-gray-400"
+              }`}
+            >
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateTimePicker
+                  className="w-full"
+                  format="YYYY-MM-DD HH:mm:ss"
+                  onChange={(value: any) =>
+                    handleChangeDatetime("exam_start_time", value)
+                  }
+                />
+              </LocalizationProvider>
+            </div>
           )}
         ></Controller>
 
@@ -113,37 +118,45 @@ const AdminExamCreateView = () => {
         control={control}
         name="exam_name"
         render={() => (
-          <Autocomplete
-            className="autoComplete"
-            sx={{ width: 300 }}
-            options={exams}
-            onChange={(value) => handleChangeExams("exam_name", value)}
-            getOptionLabel={(option) => option.title}
-            renderInput={(params) => <TextField {...params} margin="normal" />}
-            renderOption={(props, option, { inputValue }) => {
-              const matches = match(option.title, inputValue, {
-                insideWords: true,
-              });
-              const parts = parse(option.title, matches);
+          <div
+            className={`rounded-md border ${
+              errors.exam_start_time ? "border-red-400" : "border-gray-400"
+            }`}
+          >
+            <Autocomplete
+              className="autoComplete"
+              sx={{ width: 300 }}
+              options={exams}
+              onChange={(value) => handleChangeExams("exam_name", value)}
+              getOptionLabel={(option) => option.title}
+              renderInput={(params) => (
+                <TextField {...params} margin="normal" />
+              )}
+              renderOption={(props, option, { inputValue }) => {
+                const matches = match(option.title, inputValue, {
+                  insideWords: true,
+                });
+                const parts = parse(option.title, matches);
 
-              return (
-                <li {...props}>
-                  <div>
-                    {parts.map((part, index) => (
-                      <span
-                        key={index}
-                        style={{
-                          fontWeight: part.highlight ? 700 : 400,
-                        }}
-                      >
-                        {part.text}
-                      </span>
-                    ))}
-                  </div>
-                </li>
-              );
-            }}
-          />
+                return (
+                  <li {...props}>
+                    <div>
+                      {parts.map((part, index) => (
+                        <span
+                          key={index}
+                          style={{
+                            fontWeight: part.highlight ? 700 : 400,
+                          }}
+                        >
+                          {part.text}
+                        </span>
+                      ))}
+                    </div>
+                  </li>
+                );
+              }}
+            />
+          </div>
         )}
       ></Controller>
       <ErrorMessage

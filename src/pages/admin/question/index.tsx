@@ -1,9 +1,10 @@
 import CustomButton from "@/components/common/Button";
+import FormQuestion from "@/components/common/FormQuestion";
 import LayoutAdmin from "@/components/layouts/LayoutAdmin";
 import { REGEX_EMAIL } from "@/constant/constant";
 import { currentMenuItemState } from "@/recoil/side-bar.recoil";
 import { TextField } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 
@@ -26,30 +27,37 @@ const AdminQuestion = () => {
   const onSubmit = (data: any) => {
     console.log("data", data);
   };
+  const [quests, setQuests] = useState(1);
+  const handleAddQuest = () => {
+    setQuests(quests + 1);
+    console.log("quest", quests);
+  };
+  for (var i = 0; i < quests; i++) {
+    <FormQuestion />;
+  }
+  const renderTD = () => {
+    let div = [];
+
+    for (let i = 1; i <= quests; i++) {
+      div.push(
+        <div key={i}>
+          <FormQuestion />;
+        </div>
+      );
+    }
+    return div;
+  };
   return (
     <LayoutAdmin title="List question">
-      <p>AdminQuestion</p>
-      <p>demo</p>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Controller
-          control={control}
-          name="email"
-          rules={{
-            required: { value: true, message: "Trường này là bắt buộc" },
-            pattern: {
-              value: REGEX_EMAIL,
-              message: "Email chưa đúng định dạng",
-            },
-          }}
-          render={({ field: { onChange, onBlur } }) => (
-            <TextField
-              onBlur={onBlur} // notify when input is touched
-              onChange={onChange} // send value to hook form
-            />
-          )}
-        />
-        <p className="text-[red]">{errors.email && errors.email.message}</p>
-        <CustomButton text="Submit"></CustomButton>
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-5">
+        {renderTD()}
+        <div className="fixed bottom-0.5 right-5">
+          <CustomButton text="Tạo câu hỏi mới" onClick={handleAddQuest} />
+        </div>
+
+        <div className="mt-5">
+          <CustomButton type="submit" text="Submit"></CustomButton>
+        </div>
       </form>
     </LayoutAdmin>
   );

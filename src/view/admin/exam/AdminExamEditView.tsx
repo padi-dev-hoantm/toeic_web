@@ -43,7 +43,7 @@ const AdminExamEditView = () => {
       <Label text="Chọn bài thi:" />
       <Autocomplete
         className="autoComplete"
-        sx={{ width: 300 }}
+        sx={{ width: "100%" }}
         options={exams}
         getOptionLabel={(option) => option.title}
         renderInput={(params) => <TextField {...params} margin="normal" />}
