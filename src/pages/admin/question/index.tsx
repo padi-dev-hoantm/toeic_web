@@ -56,7 +56,7 @@ const AdminQuestion = () => {
     for (let i = 1; i <= quests; i++) {
       div.push(
         <div key={i} className="mb-[20px]">
-          <FormQuestion onClick={handleRemoveQuest} />
+          <FormQuestion onClick={handleRemoveQuest} part={2} />
         </div>
       );
     }

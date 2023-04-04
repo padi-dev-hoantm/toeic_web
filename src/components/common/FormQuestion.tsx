@@ -18,8 +18,15 @@ import {
 } from "@mui/material";
 import { PopperPlacementType } from "@mui/material/Popper";
 import UploadImg from "./UploadImg";
+import TextArea from "./TextArea";
 
-const FormQuestion = ({ onClick }: any) => {
+const FormQuestion = ({
+  onClick,
+  part,
+}: {
+  onClick: () => void;
+  part?: number;
+}) => {
   const [open, setOpen] = useState(false);
 
   const handleCheck = (value: string) => {
@@ -88,13 +95,22 @@ const FormQuestion = ({ onClick }: any) => {
     <div className="question-form p-5 rounded-md box-shadow-item">
       {DialogComponent}
       {PopOverComponent}
-      <UploadImg />
-      <div className="flex items-center">
-        <TextField label="Nhập nội dung câu hỏi?" variant="standard" />
-        <button onClick={handleClick("top-end")}>
-          <MoreVertIcon className="text-neutral-500 cursor-pointer	" />
-        </button>
-      </div>
+      {part === 1 ? (
+        <>
+          <p>Hãy chọn ảnh</p>
+          <div className="text-center">
+            <UploadImg />
+          </div>
+        </>
+      ) : (
+        <div className="flex items-center">
+          <TextField label="Nhập nội dung câu hỏi?" variant="standard" />
+          <button onClick={handleClick("top-end")}>
+            <MoreVertIcon className="text-neutral-500 cursor-pointer	" />
+          </button>
+        </div>
+      )}
+      <TextArea />
       <RadioGroup
         onChange={(event, value) => handleCheck(value)}
         aria-labelledby="demo-radio-buttons-group-label"
@@ -134,17 +150,19 @@ const FormQuestion = ({ onClick }: any) => {
             </div>
           }
         />
-        <FormControlLabel
-          value="4"
-          className="text-field"
-          control={<Radio />}
-          label={
-            <div className="flex items-center gap-[15px]">
-              <TextField variant="standard" placeholder="Câu trả lời..." />
-              <MoreVertIcon cursor-pointer />
-            </div>
-          }
-        />
+        {part !== 2 && (
+          <FormControlLabel
+            value="4"
+            className="text-field"
+            control={<Radio />}
+            label={
+              <div className="flex items-center gap-[15px]">
+                <TextField variant="standard" placeholder="Câu trả lời..." />
+                <MoreVertIcon cursor-pointer />
+              </div>
+            }
+          />
+        )}
       </RadioGroup>
       <div className="text-right mt-[10px] mr-[10px]">
         <DeleteOutlineIcon

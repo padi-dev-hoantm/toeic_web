@@ -73,12 +73,9 @@ const UploadImg = () => {
   return (
     <div className="relative">
       <label htmlFor="upload-photo">
-        <AddPhotoAlternateIcon />
+        <AddPhotoAlternateIcon className="text-neutral-500 cursor-pointer" />
       </label>
-      <input id="photo-upload" accept="image/*" type="file" hidden />
-      {imgPrev === "" ? (
-        <p>no img</p>
-      ) : (
+      {imgPrev !== "" && (
         <div className="flex">
           <img className="h-[400px] w-[100%] object-contain	" src={imgPrev} />
           <span
@@ -96,11 +93,11 @@ const UploadImg = () => {
         id="upload-photo"
         onChange={photoUpload}
       />
-      {imgPrev !== "" && (
+      {/* {imgPrev !== "" && (
         <div>
           <button type="submit">submit</button>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
