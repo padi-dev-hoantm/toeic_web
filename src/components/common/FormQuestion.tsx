@@ -18,7 +18,8 @@ import {
 } from "@mui/material";
 import { PopperPlacementType } from "@mui/material/Popper";
 import UploadImg from "./UploadImg";
-import TextArea from "./TextArea";
+import TextEditor from "./TextEditor";
+import dynamic from "next/dynamic";
 
 const FormQuestion = ({
   onClick,
@@ -78,6 +79,8 @@ const FormQuestion = ({
     </Dialog>
   );
 
+  const Jodit = dynamic(() => import("./TextEditor"), { ssr: false });
+
   const PopOverComponent = (
     <Popper open={openPop} anchorEl={anchorEl} placement={placement} transition>
       {({ TransitionProps }) => (
@@ -110,7 +113,7 @@ const FormQuestion = ({
           </button>
         </div>
       )}
-      <TextArea />
+      <Jodit />
       <RadioGroup
         onChange={(event, value) => handleCheck(value)}
         aria-labelledby="demo-radio-buttons-group-label"
