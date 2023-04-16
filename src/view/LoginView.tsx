@@ -6,9 +6,11 @@ import { IFormLogin } from "@/type/common.type";
 import { useRouter } from "next/router";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useMutationLogin } from "@/pages/api/login.api";
 
 const LoginView = () => {
   const router = useRouter();
+  const {mutate: mutateLogin} = useMutationLogin()
   const {
     formState: { errors },
     control,
@@ -18,8 +20,11 @@ const LoginView = () => {
     mode: "onChange",
   });
   const handleLogin: SubmitHandler<IFormLogin> = async (value) => {
-    console.log("value", value);
-    router.push(routerConstant.admin.dashboard);
+    await mutateLogin(value, {
+      onSuccess: () => {
+        router.push(routerConstant.admin.dashboard)
+      }
+    })
   };
   return (
     <div className="px-[30%] mt-[15%] text-center">

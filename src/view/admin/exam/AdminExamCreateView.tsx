@@ -10,7 +10,7 @@ import CustomButton from "@/components/common/Button";
 import CustomInput from "@/components/common/Input";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { ISchedule } from "@/type/common.type";
-import { ErrorMessage } from "@hookform/error-message";
+// import { ErrorMessage } from "@hookform/error-message";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
 
@@ -96,7 +96,6 @@ const AdminExamCreateView = () => {
             >
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateTimePicker
-                  className="w-full"
                   format="YYYY-MM-DD HH:mm:ss"
                   onChange={(value: any) =>
                     handleChangeDatetime("exam_start_time", value)
@@ -107,11 +106,11 @@ const AdminExamCreateView = () => {
           )}
         ></Controller>
 
-        <ErrorMessage
+        {/* <ErrorMessage
           errors={errors}
           name={"exam_start_time"}
           render={({ message }) => <p className="text-red-400">{message}</p>}
-        />
+        /> */}
       </div>
       <Label text="Chọn bài thi:" />
       <Controller
@@ -159,11 +158,11 @@ const AdminExamCreateView = () => {
           </div>
         )}
       ></Controller>
-      <ErrorMessage
+      {/* <ErrorMessage
         errors={errors}
         name={"exam_name"}
         render={({ message }) => <p className="text-red-400">{message}</p>}
-      />
+      /> */}
       <div className="mt-[20px]">
         <CustomButton type="submit" text="Tạo mới"></CustomButton>
       </div>

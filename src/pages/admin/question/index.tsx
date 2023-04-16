@@ -12,7 +12,7 @@ import { useSetRecoilState } from "recoil";
 import match from "autosuggest-highlight/match";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { ISchedule } from "@/type/common.type";
-import { ErrorMessage } from "@hookform/error-message";
+// import { ErrorMessage } from "@hookform/error-message";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
