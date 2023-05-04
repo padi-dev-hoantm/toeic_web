@@ -18,12 +18,18 @@ export interface IFormLogin {
     email: string
     password: string
 }
-
-export interface ITeacher{
-  id?: number;
+export interface IFormLogin {
+  email: string
+  password: string
+}
+export interface IRegister{
   email: string;
   name: string;
-  level: string;
+  password: string;
+  date_of_birth?: string;
+  phone_number?: string;
+  address?: string;
+  role: number;
 }
 
 export interface ISchedule{
@@ -35,3 +41,21 @@ export interface ISchedule{
   exam_end_time?: string;
 }
 
+export interface IExam{
+  exam_name: string;
+  exam_description: string;
+  exam_start_time: string;
+  exam_end_time: string;
+  exam_questions: string[];
+
+}
+
+export interface IExamInvite{
+  exam_id: number;
+  user_ids: string[];
+}
+
+export interface DeleteParams{
+  exam_id: number;
+  user_id: number;
+}

@@ -9,7 +9,6 @@ import { currentMenuItemState } from "@/recoil/side-bar.recoil";
 import { TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
-import match from "autosuggest-highlight/match";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { ISchedule } from "@/type/common.type";
 // import { ErrorMessage } from "@hookform/error-message";

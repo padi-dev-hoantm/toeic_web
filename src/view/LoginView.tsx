@@ -6,11 +6,14 @@ import { IFormLogin } from "@/type/common.type";
 import { useRouter } from "next/router";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useMutationLogin } from "@/pages/api/login.api";
+import { useMutationLogin } from "@/pages/api/auth.api";
+import InputCommon from "@/components/common/InputCommon";
+import { Label } from "@/components/common/Label";
+import { addCookie } from "@/untils/addCookies";
 
 const LoginView = () => {
   const router = useRouter();
-  const {mutate: mutateLogin} = useMutationLogin()
+  const { mutate: mutateLogin } = useMutationLogin()
   const {
     formState: { errors },
     control,
@@ -19,45 +22,53 @@ const LoginView = () => {
     defaultValues: {},
     mode: "onChange",
   });
-  const handleLogin: SubmitHandler<IFormLogin> = async (value) => {
-    await mutateLogin(value, {
-      onSuccess: () => {
+  const handleLogin: SubmitHandler<IFormLogin> =  (value) => {
+     mutateLogin(value, {
+      onSuccess: (data) => {
+        addCookie(data.data)
         router.push(routerConstant.admin.dashboard)
       }
     })
   };
   return (
-    <div className="px-[30%] mt-[15%] text-center">
+    <div className="px-[30%] mt-[15%] ">
       <form onClick={handleSubmit(handleLogin)} className="">
-        <CustomInput
-          label="Email:"
-          name="email"
+        <Label text="Email:" />
+        <InputCommon
+          type='text'
+          placeholder='email@gmail.com'
+          name='email'
           control={control}
-          placeholder="email@gmail.com"
+          errors={errors}
+          isRequired={true}
           rules={{
-            required: { value: true, message: "Đây là bắt buộc" },
+            required: {
+              value: true,
+              message: "Đây là bắt buộc",
+            },
             pattern: {
               value: REGEX_EMAIL,
               message: "Email chưa đúng định dạng",
             },
           }}
-          errors={errors}
-          message={errors && errors.email && errors.email.message}
         />
-        <CustomInput
-          label="Mật khẩu:"
-          name="password"
+        <Label text="Mật khẩu:" />
+        <InputCommon
+          type='password'
+          name='password'
           control={control}
           errors={errors}
-          placeholder="******"
+          isRequired={true}
           rules={{
-            required: { value: true, message: "Đây là bắt buộc" },
+            required: {
+              value: true,
+              message: "Đây là bắt buộc",
+            },
             minLength: {
               value: 6,
               message: "Mật khẩu phải lớn hơn 6 kí tự",
             },
           }}
-          message={errors && errors.password && errors.password.message}
         />
         <div className="mt-[20px] ">
           <CustomButton type="submit" text="Đăng nhập" />

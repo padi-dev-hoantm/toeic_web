@@ -1,6 +1,4 @@
 import axios, { AxiosResponse } from "axios";
-import { error } from "console";
-import { config } from "process";
 import Cookies from "universal-cookie";
 
 const baseURLApp = process.env.NEXT_PUBLIC_API
@@ -14,13 +12,15 @@ const apiClient = axios.create({
     }
 })
 
+
 const cookies = new Cookies();
 
-console.log(111, apiClient)
 
 apiClient.interceptors.request.use(
     async (config) =>{
         const jwt = cookies.get('jwt')
+        console.log('jwt',jwt )
+
         if(jwt && config.headers){
             config.headers['Authorization'] = 'Bearer' + jwt;
         }

@@ -14,6 +14,9 @@
 .shadow-sidebar{
     box-shadow: 15px 0px 15px -20px rgba(0,0,0,0.75);
 }
+.sidebar-shadow{
+    box-shadow: 10px 0px 5px -5px rgba(0, 0, 0, 0.15);
+}
 
 /* .parent-text  .css-1d3z3hw-MuiOutlinedInput-notchedOutline{
     border: none;

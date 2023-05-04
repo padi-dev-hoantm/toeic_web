@@ -42,21 +42,29 @@ export const sidebarItemTeacher = [
     {
         id: 1,
         name: 'Dash board',
-        icon: ''
+        icon: '',
+        currentMenu: 'dashboard',
+
     }, 
     {
         id: 2,
-        name: 'List candidate',
-        icon: ''
+        name: 'Thí sinh',
+        icon: '',
+        currentMenu: 'dashboard',
+
     },
     {
         id: 3,
-        name: 'Exam test',
-        icon: ''
+        name: 'Đề thi',
+        icon: '',
+        currentMenu: 'dashboard',
+
     }, 
     {
         id: 4,
-        name: 'Question',
-        icon: ''
+        name: 'Kết quả thi',
+        icon: '',
+        currentMenu: 'dashboard',
+
     }
 ]

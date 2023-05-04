@@ -17,7 +17,7 @@ const LayoutTeacher: NextPage<Props> = ({ children, title }) => {
       </Head>
       <div>
         <Header />
-        <div className="flex w-full min-h-screen bg-[#FFFFFF] layout-seller flex-wrap">
+        <div className="flex w-full min-h-screen bg-[#FFFFFF] gap-[20px] flex-wrap">
           <SidebarTeacher />
           {children}
         </div>

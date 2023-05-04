@@ -1,4 +1,4 @@
-import { sidebarItemAdmin } from "@/constant/sidebarConstant";
+import { sidebarItemAdmin, sidebarItemTeacher } from "@/constant/sidebarConstant";
 import { useCurrentMenuItemState } from "@/recoil/side-bar.recoil";
 import Link from "next/link";
 import React from "react";
@@ -25,6 +25,19 @@ const SidebarAdmin = () => {
                 : "hover:bg-[lightsteelblue]"
             }`}
             href={item.router}
+            key={item.id}
+          >
+            {item.name}
+          </Link>
+        ))}
+        {sidebarItemTeacher.map((item) => (
+          <Link
+            className={`p-2 my-2 ${
+              currentMenuItem === item.currentMenu
+                ? "side-active"
+                : "hover:bg-[lightsteelblue]"
+            }`}
+            href={``}
             key={item.id}
           >
             {item.name}

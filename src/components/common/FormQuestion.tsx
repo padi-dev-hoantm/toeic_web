@@ -18,8 +18,8 @@ import {
 } from "@mui/material";
 import { PopperPlacementType } from "@mui/material/Popper";
 import UploadImg from "./UploadImg";
-import TextEditor from "./TextEditor";
 import dynamic from "next/dynamic";
+import Editor from "./Qill";
 
 const FormQuestion = ({
   onClick,
@@ -54,11 +54,11 @@ const FormQuestion = ({
 
   const handleClick =
     (newPlacement: PopperPlacementType) =>
-    (event: React.MouseEvent<HTMLButtonElement>) => {
-      setAnchorEl(event.currentTarget);
-      setOpenPop((prev) => placement !== newPlacement || !prev);
-      setPlacement(newPlacement);
-    };
+      (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+        setOpenPop((prev) => placement !== newPlacement || !prev);
+        setPlacement(newPlacement);
+      };
 
   const DialogComponent = (
     <Dialog
@@ -79,7 +79,7 @@ const FormQuestion = ({
     </Dialog>
   );
 
-  const Jodit = dynamic(() => import("./TextEditor"), { ssr: false });
+  const TextEditor = dynamic(() => import("./Qill"), { ssr: false });
 
   const PopOverComponent = (
     <Popper open={openPop} anchorEl={anchorEl} placement={placement} transition>
@@ -96,6 +96,8 @@ const FormQuestion = ({
   );
   return (
     <div className="question-form p-5 rounded-md box-shadow-item">
+      <TextEditor />
+
       {DialogComponent}
       {PopOverComponent}
       {part === 1 ? (
@@ -113,7 +115,6 @@ const FormQuestion = ({
           </button>
         </div>
       )}
-      <Jodit />
       <RadioGroup
         onChange={(event, value) => handleCheck(value)}
         aria-labelledby="demo-radio-buttons-group-label"
