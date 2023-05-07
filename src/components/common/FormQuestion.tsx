@@ -20,6 +20,9 @@ import { PopperPlacementType } from "@mui/material/Popper";
 import UploadImg from "./UploadImg";
 import dynamic from "next/dynamic";
 import Editor from "./Qill";
+import { useForm } from "react-hook-form";
+import CustomButton from "@/components/common/Button";
+import RadioInput from "./RadioInput";
 
 const FormQuestion = ({
   onClick,
@@ -29,7 +32,13 @@ const FormQuestion = ({
   part?: number;
 }) => {
   const [open, setOpen] = useState(false);
-
+  const {
+    formState: { errors },
+    control,
+    handleSubmit,
+  } = useForm({
+    mode: "onChange",
+  });
   const handleCheck = (value: string) => {
     console.log("value", value);
   };
@@ -96,9 +105,17 @@ const FormQuestion = ({
   );
   return (
     <div className="question-form p-5 rounded-md box-shadow-item">
-      <TextEditor />
 
-      {DialogComponent}
+      <RadioInput name='resell'
+        control={control}
+        label='リセールの可否'
+        type='text'
+        listOption={[
+          { value: 'on', label: 'リセール可能にする' },
+          { value: 'off', label: 'リセール不可能にする' },
+        ]} />
+        
+      {/* {DialogComponent}
       {PopOverComponent}
       {part === 1 ? (
         <>
@@ -173,7 +190,8 @@ const FormQuestion = ({
           onClick={handleClickOpen}
           className="text-[36px] hover:text-red-500 text-neutral-500 cursor-pointer"
         />
-      </div>
+      </div> */}
+
     </div>
   );
 };

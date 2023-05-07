@@ -19,10 +19,9 @@ const cookies = new Cookies();
 apiClient.interceptors.request.use(
     async (config) =>{
         const jwt = cookies.get('jwt')
-        console.log('jwt',jwt )
 
         if(jwt && config.headers){
-            config.headers['Authorization'] = 'Bearer' + jwt;
+            config.headers['Authorization'] = jwt;
         }
         return config
     },

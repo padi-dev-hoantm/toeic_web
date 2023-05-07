@@ -5,7 +5,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 const authApi = {
     login: (data: IFormLogin) => apiClient.post("/api/auth/login", data),
     register: (data: IRegister) => apiClient.post("/api/auth/register", data),
-    getMe: () => apiClient.post("/api/auth/secured/me"),
+    getMe: () => apiClient.get("/api/auth/secured/me"),
 }
 
 export const useMutationLogin = () => {

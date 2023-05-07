@@ -1,4 +1,5 @@
 export const routerConstant = {
+    me: "/me",
     admin: {
       index: "/admin",
       dashboard: "/admin/dashboard",

@@ -36,3 +36,7 @@
     width: 100%;
 
 }
+
+:where(.css-dev-only-do-not-override-yp8pcc).ant-btn-primary {
+    background-color: #1677ff;
+}
