@@ -13,7 +13,7 @@ const examApi = {
 }
 
 export const useMutationCreateExam = () => {
-    return useMutation(['create-exams'], (data: IExam) => {
+    return useMutation(['create-exams'], (data: any) => {
         return examApi.createExam(data);
     });
 }
