@@ -56,7 +56,7 @@ export const UploadImage = ({
 
     const handleBeforeUpload = async (file: RcFile): Promise<string | boolean> => {
         const allowFile = ['jpg', 'png', 'webp'];
-
+        console.log(11, file)
         const typeImage = file?.name?.split('.').pop();
 
         if (typeImage && !allowFile.includes(typeImage)) {
@@ -107,6 +107,7 @@ export const UploadImage = ({
                 name='files'
                 beforeUpload={(file) => handleBeforeUpload(file)}
                 accept='.png, .jpg, .webp'
+                method='POST'
             >
                 {number && fileList.length >= number ? null : uploadButton}
             </Upload>

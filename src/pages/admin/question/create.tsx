@@ -1,10 +1,10 @@
 import LayoutAdmin from "@/components/layouts/LayoutAdmin";
-import ListQuestionView from "@/view/question/ListQuestionView";
+import CreateQuestionView from "@/view/question/CreateQuestionView";
 
 const Admin = () => {
   return (
     <LayoutAdmin title="Admin">
-      <ListQuestionView />
+      <CreateQuestionView />
     </LayoutAdmin>
   );
 };

@@ -13,7 +13,8 @@ export const routerConstant = {
         create: "/admin/schedule-exam/create"
       }, 
       question: {
-        index: "/admin/question"
+        index: "/admin/question",
+        create: "/admin/question/create"
       }
     },
     error404: "/404",
