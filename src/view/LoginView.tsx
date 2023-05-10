@@ -1,19 +1,17 @@
 import CustomButton from "@/components/common/Button";
-import CustomInput from "@/components/common/Input";
-import { REGEX_EMAIL } from "@/constant/constant";
-import { routerConstant } from "@/constant/routerConstant";
-import { IFormLogin } from "@/type/common.type";
-import { useRouter } from "next/router";
-import React from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useMutationLogin } from "@/pages/api/auth.api";
 import InputCommon from "@/components/common/InputCommon";
 import { Label } from "@/components/common/Label";
+import { REGEX_EMAIL } from "@/constant/constant";
+import { routerConstant } from "@/constant/routerConstant";
+import { useMutationLogin } from "@/pages/api/auth.api";
+import { IFormLogin } from "@/type/common.type";
 import { addCookie } from "@/untils/addCookies";
+import { useRouter } from "next/router";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 const LoginView = () => {
   const router = useRouter();
-  const { mutate: mutateLogin } = useMutationLogin()
+  const { mutate: mutateLogin } = useMutationLogin();
   const {
     formState: { errors },
     control,
@@ -22,22 +20,25 @@ const LoginView = () => {
     defaultValues: {},
     mode: "onChange",
   });
-  const handleLogin: SubmitHandler<IFormLogin> =  (value) => {
-     mutateLogin(value, {
+  const handleLogin: SubmitHandler<IFormLogin> = (value) => {
+    mutateLogin(value, {
       onSuccess: (data) => {
-        addCookie(data.data)
-        router.push(routerConstant.admin.dashboard)
-      }
-    })
+        addCookie(data.data);
+        router.push(routerConstant.admin.dashboard);
+      },
+      onError: () => {
+        alert("Đang xảy ra lỗi, vui lòng thử lại sau");
+      },
+    });
   };
   return (
     <div className="px-[30%] mt-[15%] ">
       <form onClick={handleSubmit(handleLogin)} className="">
         <Label text="Email:" />
         <InputCommon
-          type='text'
-          placeholder='email@gmail.com'
-          name='email'
+          type="text"
+          placeholder="email@gmail.com"
+          name="email"
           control={control}
           errors={errors}
           isRequired={true}
@@ -54,8 +55,8 @@ const LoginView = () => {
         />
         <Label text="Mật khẩu:" />
         <InputCommon
-          type='password'
-          name='password'
+          type="password"
+          name="password"
           control={control}
           errors={errors}
           isRequired={true}

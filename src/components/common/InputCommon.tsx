@@ -1,5 +1,5 @@
-import { Input } from 'antd';
-import { Controller } from 'react-hook-form';
+import { Input } from "antd";
+import { Controller } from "react-hook-form";
 
 const InputCommon = ({
   control,
@@ -11,7 +11,7 @@ const InputCommon = ({
   ...rest
 }: any) => {
   return (
-    <div className='flex flex-col mb-[20px]'>
+    <div className="flex flex-col mb-[20px]">
       <Controller
         control={control}
         name={name}
@@ -19,12 +19,14 @@ const InputCommon = ({
         render={({ field: { value, onChange } }) => (
           <div
             className={`max-w-[400px] rounded-md border ${
-              errors && errors[name] && errors[name].message ? 'border-red-400' : 'border-gray-400'
+              errors && errors[name] && errors[name].message
+                ? "border-red-400"
+                : "border-gray-400"
             }`}
           >
             <Input
               {...rest}
-              className='w-full hidden-spin-button'
+              className="w-full hidden-spin-button"
               bordered={false}
               value={value}
               onChange={onChange}
@@ -35,7 +37,9 @@ const InputCommon = ({
         )}
       />
       {errors && errors[name] && errors[name].message && (
-        <span className='text-xs text-red-400 mt-1'>{errors[name].message}</span>
+        <span className="text-xs text-red-400 mt-1">
+          {errors[name].message}
+        </span>
       )}
     </div>
   );

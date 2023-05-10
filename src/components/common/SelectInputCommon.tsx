@@ -1,5 +1,5 @@
-import { Select } from 'antd';
-import { Controller } from 'react-hook-form';
+import { Select } from "antd";
+import { Controller } from "react-hook-form";
 
 const SelectInputCommon = ({
   control,
@@ -12,7 +12,7 @@ const SelectInputCommon = ({
   ...rest
 }: any) => {
   return (
-    <div className='flex flex-col'>
+    <div className="flex flex-col">
       <Controller
         control={control}
         name={name}
@@ -20,12 +20,14 @@ const SelectInputCommon = ({
         render={({ field: { value, onChange } }) => (
           <div
             className={`max-w-[400px] rounded-md border ${
-              errors && errors[name] && errors[name].message ? 'border-red-400' : 'border-gray-400'
+              errors && errors[name] && errors[name].message
+                ? "border-red-400"
+                : "border-gray-400"
             }`}
           >
             <Select
               {...rest}
-              className='w-full'
+              className="w-full"
               bordered={false}
               value={value ? value : undefined}
               onChange={onChange}
@@ -36,7 +38,9 @@ const SelectInputCommon = ({
         )}
       />
       {errors && errors[name] && errors[name].message && (
-        <span className='text-xs text-red-400 mt-1'>{errors[name].message}</span>
+        <span className="text-xs text-red-400 mt-1">
+          {errors[name].message}
+        </span>
       )}
     </div>
   );

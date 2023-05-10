@@ -5,8 +5,8 @@ import InputCommon from "./InputCommon";
 import { Label } from "./Label";
 import { UploadImage } from "./UploadImage";
 import { useState } from "react";
-import { UploadFile } from 'antd/lib/upload';
-import { Select, UploadProps } from 'antd';
+import { UploadFile } from "antd/lib/upload";
+import { Select, UploadProps } from "antd";
 import TextAreaCommon from "./TextAreaCommon";
 import SelectInputCommon from "./SelectInputCommon";
 
@@ -24,21 +24,23 @@ const Qill = ({ index, control, register, type }: any) => {
     formState: { errors },
     setValue,
     setError,
-    clearErrors
+    clearErrors,
   } = useForm();
   const [fileImage, setFileImage] = useState<UploadFile[]>([]);
 
-  const handleChangeImage: UploadProps['onChange'] = ({ fileList: newFileList }) => {
-    console.log(11222, newFileList)
-    setValue('image', newFileList?.[0]?.response?.data?.image);
+  const handleChangeImage: UploadProps["onChange"] = ({
+    fileList: newFileList,
+  }) => {
+    console.log(11222, newFileList);
+    setValue("image", newFileList?.[0]?.response?.data?.image);
     if (newFileList?.[0]?.response?.data?.image) {
-      clearErrors('image');
+      clearErrors("image");
     }
     setFileImage(newFileList);
-    if (newFileList[0]?.status === 'error') {
-      setError('image', {
-        type: 'custom',
-        message: 'Hình ảnh là bắt buộc',
+    if (newFileList[0]?.status === "error") {
+      setError("image", {
+        type: "custom",
+        message: "Hình ảnh là bắt buộc",
       });
     }
   };
@@ -70,8 +72,8 @@ const Qill = ({ index, control, register, type }: any) => {
     <div className="mt-[50px] box-shadow-item pl-[20px] pt-[10px]">
       <Label text={`Câu: ${index + 1}`} />
       <Label text="Nhập câu hỏi" />
-      {
-        (type === 3 || type === 4) && <TextAreaCommon
+      {(type === 3 || type === 4) && (
+        <TextAreaCommon
           name={`exam_questions.${index}.question_text`}
           control={control}
           rows={2}
@@ -86,15 +88,17 @@ const Qill = ({ index, control, register, type }: any) => {
           maxLength={800}
           errors={errors}
         />
-      }
+      )}
 
-      {type === 1 && <UploadImage
+      {/* {type === 1 && ( */}
+      <UploadImage
         fileList={fileImage}
         handleChangeImage={handleChangeImage}
-        fileName='image'
+        fileName="image"
         number={1}
         errorMessage={errors && errors.image && errors.image.message}
-      />}
+      />
+      {/* )} */}
 
       <Label text="Part:" />
       <InputCommon
@@ -110,43 +114,48 @@ const Qill = ({ index, control, register, type }: any) => {
           },
         }}
       />
-      <p>*1 là đáp án đúng - 0 là đáp án sai</p>
+      <p className="text-red-600">* 1 là đáp án đúng - 0 là đáp án sai</p>
       {fields1.map((item2, index2) => {
         return (
-          <div key={index2} className="flex gap-[10px] mb-[20px] ml-[10px] items-center">
-            <SelectInputCommon
-              control={control}
-              name={`exam_questions.${index}.answers.${index2}.is_correct`}
-              isRequired={true}
-              rules={{
-                required: {
-                  value: true,
-                  message: 'day la bat buoc',
-                },
-              }}
-              options={[
-                { value: 0, label: 0 },
-                { value: 1, label: 1 },
-              ]}
-              errors={errors}
-            />
-            <div className="w-[20px]">
+          <div
+            key={index2}
+            className="flex gap-[10px] mb-[20px] ml-[10px] h-[30px]"
+          >
+            <div className="w-[42px]">
+              <SelectInputCommon
+                control={control}
+                name={`exam_questions.${index}.answers.${index2}.is_correct`}
+                isRequired={true}
+                rules={{
+                  required: {
+                    value: true,
+                    message: "day la bat buoc",
+                  },
+                }}
+                defaultValue={0}
+                options={[
+                  { value: 0, label: 0 },
+                  { value: 1, label: 1 },
+                ]}
+                errors={errors}
+              />
             </div>
-
-            <input
-              className="border border-t-2 border-blue-900"
-              {...register(
-                `exam_questions.${index}.answers.${index2}.content`,
-                {
-                  required: true,
-                }
-              )}
-            />
-            <CustomButtonDelete
-              text="Delete"
-              type="button"
+            <div>
+              <input
+                type="text"
+                className="w-[600px] rounded-md border border-gray-400 h-[34px] pl-[5px]"
+                {...register(
+                  `exam_questions.${index}.answers.${index2}.content`,
+                  { require: true }
+                )}
+              />
+            </div>
+            <button
               onClick={() => remove1(index)}
-            />
+              className="bg-[red] text-white px-[10px]"
+            >
+              Xóa
+            </button>
           </div>
         );
       })}
