@@ -9,6 +9,7 @@ import { UploadFile } from 'antd/lib/upload';
 import { Select, UploadProps } from 'antd';
 import TextAreaCommon from "./TextAreaCommon";
 import SelectInputCommon from "./SelectInputCommon";
+import dynamic from 'next/dynamic';
 
 const Qill = ({ index, control, register, type }: any) => {
   const {
@@ -27,7 +28,9 @@ const Qill = ({ index, control, register, type }: any) => {
     clearErrors
   } = useForm();
   const [fileImage, setFileImage] = useState<UploadFile[]>([]);
-
+  const TextEditor = dynamic(() => import('./TextEditor'), {
+    ssr: false,
+  });
   const handleChangeImage: UploadProps['onChange'] = ({ fileList: newFileList }) => {
     console.log(11222, newFileList)
     setValue('image', newFileList?.[0]?.response?.data?.image);
@@ -70,6 +73,20 @@ const Qill = ({ index, control, register, type }: any) => {
     <div className="mt-[50px] box-shadow-item pl-[20px] pt-[10px]">
       <Label text={`Câu: ${index + 1}`} />
       <Label text="Nhập câu hỏi" />
+      <TextEditor
+        name={`exam_questions.${index}.question_text`}
+        control={control}
+        label='会場名'
+        isRequired={true}
+        placeholder='Autosize height based on content lines'
+        rules={{
+          required: {
+            value: true,
+            message: "Đây là bắt buộc",
+          },
+        }}
+        errors={errors}
+      />
       {
         (type === 3 || type === 4) && <TextAreaCommon
           name={`exam_questions.${index}.question_text`}
