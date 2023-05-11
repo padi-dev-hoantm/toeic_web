@@ -5,16 +5,17 @@ import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 
 const Teacher = () => {
-  const setCurrentMenuItem = useSetRecoilState(currentMenuItemState);
-  useEffect(() => {
-    setCurrentMenuItem("teacherDashboard");
-  }, []);
-  
-  return (
-    <LayoutAdmin title="Teacher">
-      <AdminDashboardView />
-    </LayoutAdmin>
-  );
+    const setCurrentMenuItem = useSetRecoilState(currentMenuItemState);
+    useEffect(() => {
+        setCurrentMenuItem("result");
+    }, []);
+
+    return (
+        <LayoutAdmin title="Teacher">
+            result
+        </LayoutAdmin>
+
+    );
 };
 
 export default Teacher;
