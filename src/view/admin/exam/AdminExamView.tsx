@@ -12,7 +12,7 @@ import { ISchedule } from "@/type/common.type";
 const AdminExamView = () => {
   const {data } = useQueryGetListExam()
   const exams = data?.data
-  if(!exams) return
+  if(!exams) return <div className="text-center">Không có bài thi nào</div>
   
   return (
     <div className="mt-[20px]">

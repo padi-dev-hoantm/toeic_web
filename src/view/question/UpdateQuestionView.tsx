@@ -22,7 +22,6 @@ const UpdateQuestionView = () => {
     const examId = router.query.exam_id
     const { data } = useQueryGetDetailExam(Number(examId));
     const detailExam = data?.data
-    console.log(12345, data)
     const {
         register,
         control,

@@ -7,7 +7,7 @@ export const sidebarItemAdmin = [
         icon: '',
         currentMenu: 'dashboard',
         router: routerConstant.admin.dashboard
-    }, 
+    },
     {
         id: 2,
         name: 'List teacher',
@@ -21,7 +21,7 @@ export const sidebarItemAdmin = [
         icon: '',
         currentMenu: 'exam',
         router: routerConstant.admin.exam.index
-    }, 
+    },
     {
         id: 4,
         name: 'Question',
@@ -43,28 +43,30 @@ export const sidebarItemTeacher = [
         id: 1,
         name: 'Dash board',
         icon: '',
-        currentMenu: 'dashboard',
-
-    }, 
+        currentMenu: 'teacherDashboard',
+        router: routerConstant.teacher.index
+    },
     {
         id: 2,
         name: 'Thí sinh',
         icon: '',
-        currentMenu: 'dashboard',
-
+        currentMenu: 'student',
+        router: routerConstant.teacher.student.index
     },
     {
         id: 3,
         name: 'Đề thi',
         icon: '',
-        currentMenu: 'dashboard',
+        currentMenu: 'exam-teacher',
+        router: routerConstant.teacher.exam.index
 
-    }, 
+    },
     {
         id: 4,
         name: 'Kết quả thi',
         icon: '',
-        currentMenu: 'dashboard',
+        currentMenu: 'result',
+        router: routerConstant.teacher.result.index
 
     }
 ]
