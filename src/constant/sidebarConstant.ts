@@ -34,7 +34,10 @@ export const sidebarItemAdmin = [
         name: 'Logout',
         icon: '',
         currentMenu: 'Logout',
-        router: routerConstant.home
+        router: '',
+        onclick: () => {
+            console.log('okkk');
+        }
     }
 ]
 

@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { AppProps } from "next/app";
 import { useState } from "react";
 import { RecoilRoot } from "recoil";
+import nProgress from "nprogress";
+import Router from "next/router";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(
@@ -25,14 +27,20 @@ export default function App({ Component, pageProps }: AppProps) {
           },
         },
       },
-    }),
+    })
   );
+
+  nProgress.configure({ showSpinner: false });
+
+  Router.events.on("routeChangeStart", nProgress.start);
+  Router.events.on("routeChangeError", nProgress.done);
+  Router.events.on("routeChangeComplete", nProgress.done);
+
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         <Component {...pageProps} />
       </QueryClientProvider>
     </RecoilRoot>
-
   );
 }

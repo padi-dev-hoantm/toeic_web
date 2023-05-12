@@ -6,6 +6,7 @@ const authApi = {
     login: (data: IFormLogin) => apiClient.post("/api/auth/login", data),
     register: (data: IRegister) => apiClient.post("/api/auth/register", data),
     getMe: () => apiClient.get("/api/auth/secured/me"),
+    uploadLogo: (data: FormData) => apiClient.post('/api/exams/file', data),
 }
 
 export const useMutationLogin = () => {
