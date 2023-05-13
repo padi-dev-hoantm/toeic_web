@@ -1,30 +1,13 @@
-import { NextRequest, NextResponse } from "next/server";
-
-
-export const middleware = (req: NextRequest) => {
-    console.log('middleware')
-
-
-
-    return NextResponse.next();
+import { routerConstant } from '@/constant/routerConstant';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import Cookies from 'universal-cookie';
+ 
+export function middleware(request: NextRequest) {
+  const cookies = new Cookies();
+  const jwt = cookies.get('jwt');
+  console.log(123, jwt)
+  if(!jwt){
+    return NextResponse.rewrite(routerConstant.login)
+  }
 }
-
-export const config = {
-    matcher: [
-      /*
-       * Match all request paths except for the ones starting with:
-       * - api (API routes)
-       * - _next/static (static files)
-       * - favicon.ico (favicon file)
-       * - next image
-       * - img in storage public
-       */
-      '/((?!api|_next/static|_next/image|favicon.ico|img).*)',
-  
-      /*
-       * Match request from home
-       */
-      '/',
-    ],
-  };
-  

@@ -3,6 +3,7 @@ import { sidebarItemAdmin, sidebarItemTeacher } from "@/constant/sidebarConstant
 import { useQueryGetMe } from "@/pages/api/auth.api";
 import { useCurrentMenuItemState } from "@/recoil/side-bar.recoil";
 import { addCookie } from "@/untils/addCookies";
+import { userRole } from "@/untils/role";
 import Link from "next/link";
 import React from "react";
 
@@ -12,13 +13,14 @@ const SidebarAdmin = () => {
   const { data: dataMe } = useQueryGetMe();
   const data = dataMe?.data;
   addCookie(data)
+
   return (
-    <div className="bg-[#FAFAFA] left-0 h-full pl-3 h-screen pt-[30px] ">
-      <div>
+    <div className="bg-[#FAFAFA] left-0 h-full p-3 h-screen pt-[30px] ">
+      <div className="text-center text-base font-bold uppercase">
         <Link href={routerConstant.me}>
-          <h1 className="text-2xl">{data?.name}</h1>
+          <h1 className="">{data?.name}</h1>
         </Link>
-        {/* <p className="text-base font-bold">{data.role}</p> */}
+        <p >{userRole(data?.role)}</p>
       </div>
       <div className="flex flex-col">
         {sidebarItemAdmin.map((item) => (

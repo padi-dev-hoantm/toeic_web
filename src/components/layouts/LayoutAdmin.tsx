@@ -22,8 +22,8 @@ const LayoutBasic: NextPage<Props> = ({ children, title }) => {
       <div>
         <Header />
         <Box sx={{ flexGrow: 1 }}>
-          <Grid container>
-            <Grid item xs={2} className="shadow-sidebar  mr-[40px]">
+          <Grid container className="flex gap-[40px]">
+            <Grid item xs={2} className="shadow-sidebar">
               <SidebarAdmin />
             </Grid>
             <Grid item xs={9}>

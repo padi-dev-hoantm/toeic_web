@@ -7,6 +7,7 @@ import { Label } from "@/components/common/Label";
 import Qill from "@/components/common/Qill";
 import { useMutationCreateExam } from "@/pages/api/exams";
 import TextAreaCommon from "@/components/common/TextAreaCommon";
+import { ErrorMessage } from '@hookform/error-message';
 
 const CreateQuestionView = () => {
   const { mutate } = useMutationCreateExam();
@@ -16,22 +17,43 @@ const CreateQuestionView = () => {
     control,
     formState: { errors },
     handleSubmit,
+    setValue,
+    setError
   } = useForm();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "exam_questions",
   });
-  const handleAudioUpload = (event: any, field: any) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const audioBase64 = reader.result;
-        field.onChange(audioBase64);
+
+  const handleAudioUpload = (e: any) => {
+    const input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.click();
+
+    input.onchange = async () => {
+      if (!input) return;
+      if (!input.files) return;
+      const file = input.files[0];
+      const formData = new FormData();
+      formData.append("files", file);
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "http://14.225.192.48/api/exams/file", true);
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          const response = xhr.responseText;
+          const linkAudio = JSON.parse(response).paths[0]
+          setValue("listen_file", linkAudio)
+        } else {
+          setError("listen_file", {
+            type: "custom",
+            message: "Có lỗi đang xảy ra, vui lòng thử lại"
+          })
+        }
       };
-      reader.readAsDataURL(file);
-    }
+      xhr.send(formData);
+    };
   };
+
   const onSubmit = (data: any) => {
     mutate(data, {
       onSuccess: () => {
@@ -41,80 +63,89 @@ const CreateQuestionView = () => {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Label text="Nhập tên bài thi:" />
-      <TextAreaCommon
-        name="exam_name"
-        control={control}
-        rows={2}
-        isRequired={true}
-        rules={{
-          required: {
-            value: true,
-            message: "Đây là bắt buộc",
-          },
-        }}
-        showCount={true}
-        maxLength={800}
-        errors={errors}
-      />
-      <Label text="Nhập mô tả bài thi:" />
-      <TextAreaCommon
-        name="exam_description"
-        control={control}
-        rows={2}
-        isRequired={true}
-        rules={{
-          required: {
-            value: true,
-            message: "Đây là bắt buộc",
-          },
-        }}
-        showCount={true}
-        maxLength={800}
-        errors={errors}
-      />
-      <Label text="Nhập file nghe:" />
-      <Controller
-        name={`exam_audio`}
-        control={control}
-        render={({ field }) => (
-          <>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => handleAudioUpload(e, field)}
-            />
-            {field.value && <img src={field.value} alt="Ảnh" />}
-          </>
-        )}
-      />
-      {/* <Label text="Thời gian bắt đầu bài thi:" />
-      <DatePickerCommon
-        name="exam_start_time"
-        control={control}
-        isRequired={true}
-        rules={{
-          required: {
-            value: true,
-            message: "Đây là bắt buộc",
-          },
-        }}
-        errors={errors}
-      />
-      <Label text="Thời gian kết thúc bài thi:" />
-      <DatePickerCommon
-        name="exam_end_time"
-        control={control}
-        isRequired={true}
-        rules={{
-          required: {
-            value: true,
-            message: "Đây là bắt buộc",
-          },
-        }}
-        errors={errors}
-      /> */}
-      <ul>
+      <div className="box-shadow-item p-[20px] mt-[20px]">
+        <Label text="Nhập tên bài thi:" />
+        <TextAreaCommon
+          name="exam_name"
+          control={control}
+          rows={2}
+          isRequired={true}
+          rules={{
+            required: {
+              value: true,
+              message: "Đây là bắt buộc",
+            },
+          }}
+          showCount={true}
+          maxLength={800}
+          errors={errors}
+        />
+        <Label text="Nhập mô tả bài thi:" />
+        <TextAreaCommon
+          name="exam_description"
+          control={control}
+          rows={2}
+          isRequired={true}
+          rules={{
+            required: {
+              value: true,
+              message: "Đây là bắt buộc",
+            },
+          }}
+          showCount={true}
+          maxLength={800}
+          errors={errors}
+        />
+        <Label text="Thời gian bắt đầu bài thi:" />
+        <DatePickerCommon
+          name="exam_start_time"
+          control={control}
+          isRequired={true}
+          rules={{
+            required: {
+              value: true,
+              message: "Đây là bắt buộc",
+            },
+          }}
+          errors={errors}
+        />
+        <Label text="Thời gian kết thúc bài thi:" />
+        <DatePickerCommon
+          name="exam_end_time"
+          control={control}
+          isRequired={true}
+          rules={{
+            required: {
+              value: true,
+              message: "Đây là bắt buộc",
+            },
+          }}
+          errors={errors}
+        />
+        <div className="flex flex-col">
+          <Label text="Nhập file nghe:" />
+          <Controller
+            name={`listen_file`}
+            control={control}
+            render={({ field }) => (
+              <>
+                <input
+                  type="file"
+                  {...register("listen_file", { required: "Đây là bắt buộc" })}
+                  onChange={(e) => handleAudioUpload(e)}
+                />
+                {field.value}
+              </>
+            )}
+          />
+          <ErrorMessage
+            errors={errors}
+            name="listen_file"
+            render={({ message }) => <span className='text-xs text-red-400 mt-1'>{message}</span>}
+          />
+        </div>
+      </div>
+      <div>
         {fields.map((item, index) => {
           return (
             <div key={index}>
@@ -127,7 +158,7 @@ const CreateQuestionView = () => {
             </div>
           );
         })}
-      </ul>
+      </div>
       <section className="mt-[20px]">
         <CustomButton
           text="Thêm câu hỏi mới"

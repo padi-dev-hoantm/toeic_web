@@ -23,13 +23,18 @@ export interface IFormLogin {
   password: string
 }
 export interface IRegister{
+  ID?: number;
   email: string;
   name: string;
-  password: string;
+  password?: string;
   date_of_birth?: string;
   phone_number?: string;
   address?: string;
-  role: number;
+  role?: number;
+  CreatedAt? : string;
+  DeletedAt? : string;
+  UpdatedAt? : string;
+
 }
 
 export interface ISchedule{

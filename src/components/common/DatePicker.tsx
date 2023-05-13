@@ -9,6 +9,7 @@ const DatePickerCommon = ({
   defaultValue,
   errors,
   dateDisableBefore = dayjs(new Date()),
+  showTime= true
 }: any) => {
   return (
     <div className='flex flex-col'>
@@ -23,9 +24,9 @@ const DatePickerCommon = ({
           >
             <DatePicker
               defaultValue={defaultValue}
-              showTime
               onChange={onChange}
               bordered={false}
+              showTime={showTime}
               disabledDate={(current) => {
                 return current && current < dateDisableBefore;
               }}

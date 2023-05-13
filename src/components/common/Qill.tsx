@@ -1,15 +1,9 @@
-import { Controller, useFieldArray, useForm } from "react-hook-form";
+import dynamic from "next/dynamic";
+import { useFieldArray, useForm } from "react-hook-form";
 import CustomButton from "./Button";
-import CustomButtonDelete from "./ButtonDelete";
 import InputCommon from "./InputCommon";
 import { Label } from "./Label";
-import { UploadImage } from "./UploadImage";
-import { useState } from "react";
-import { UploadFile } from "antd/lib/upload";
-import { Select, UploadProps } from "antd";
-import TextAreaCommon from "./TextAreaCommon";
 import SelectInputCommon from "./SelectInputCommon";
-import dynamic from "next/dynamic";
 
 const Qill = ({ index, control, register, type }: any) => {
   const {
@@ -27,50 +21,10 @@ const Qill = ({ index, control, register, type }: any) => {
     setError,
     clearErrors,
   } = useForm();
-  const [fileImage, setFileImage] = useState<UploadFile[]>([]);
   const TextEditor = dynamic(() => import("./TextEditor"), {
     ssr: false,
   });
-  const handleChangeImage: UploadProps["onChange"] = ({
-    fileList: newFileList,
-  }) => {
-    console.log(11222, newFileList);
-    setValue("image", newFileList?.[0]?.response?.data?.image);
-    if (newFileList?.[0]?.response?.data?.image) {
-      clearErrors("image");
-    }
-    setFileImage(newFileList);
-    if (newFileList[0]?.status === "error") {
-      setError("image", {
-        type: "custom",
-        message: "Hình ảnh là bắt buộc",
-      });
-    }
-  };
 
-  const handleImageUpload = (event: any, field: any) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const imageBase64 = reader.result;
-        field.onChange(imageBase64);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleAudioUpload = (event: any, field: any) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const audioBase64 = reader.result;
-        field.onChange(audioBase64);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
   return (
     <div className="mt-[50px] box-shadow-item pl-[20px] pt-[10px]">
       <Label text={`Câu: ${index + 1}`} />
@@ -89,17 +43,6 @@ const Qill = ({ index, control, register, type }: any) => {
         }}
         errors={errors}
       />
-
-      {/* {type === 1 && ( */}
-      <UploadImage
-        fileList={fileImage}
-        handleChangeImage={handleChangeImage}
-        fileName="image"
-        number={1}
-        errorMessage={errors && errors.image && errors.image.message}
-      />
-      {/* )} */}
-
       <Label text="Part:" />
       <InputCommon
         type="text"

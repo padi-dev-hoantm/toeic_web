@@ -5,7 +5,8 @@ export const routerConstant = {
     dashboard: "/admin/dashboard",
     teacher: {
       index: "/admin/teacher",
-      exam: (teacher_id: number) => `/admin/teacher/${teacher_id}/exam`
+      detail: (teacher_id: number) => `/admin/teacher/${teacher_id}`,
+      create: "/admin/teacher/create"
     },
     exam: {
       index: "/admin/schedule-exam",
@@ -14,7 +15,7 @@ export const routerConstant = {
     },
     question: {
       index: "/admin/question",
-      create: "/admin/question/create"
+      create: "/admin/question/create",
     }
   },
   teacher: {

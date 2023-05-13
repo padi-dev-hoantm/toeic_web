@@ -17,10 +17,10 @@ const cookies = new Cookies();
 
 
 apiClient.interceptors.request.use(
-    async (config) =>{
+    async (config) => {
         const jwt = cookies.get('jwt')
 
-        if(jwt && config.headers){
+        if (jwt && config.headers) {
             config.headers['Authorization'] = jwt;
         }
         return config
@@ -31,15 +31,15 @@ apiClient.interceptors.request.use(
 )
 
 apiClient.interceptors.response.use(
-    (response: AxiosResponse) =>{
-        if(response && response.data){
+    (response: AxiosResponse) => {
+        if (response && response.data) {
             return response.data
         }
         return response
     },
     (error) => {
-        if(error.message === 'Network error'){
-            alert(error.message)
+        if (error.message === 'Network error') {
+            console.log(error.message)
         }
         return Promise.reject(error)
     }
