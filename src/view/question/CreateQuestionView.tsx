@@ -42,12 +42,13 @@ const CreateQuestionView = () => {
         if (xhr.status === 200) {
           const response = xhr.responseText;
           const linkAudio = JSON.parse(response).paths[0]
+          console.log(123, linkAudio)
           setValue("listen_file", linkAudio)
         } else {
-          setError("listen_file", {
-            type: "custom",
-            message: "Có lỗi đang xảy ra, vui lòng thử lại"
-          })
+          // setError("listen_file", {
+          //   type: "custom",
+          //   message: "Có lỗi đang xảy ra, vui lòng thử lại"
+          // })
         }
       };
       xhr.send(formData);
@@ -127,11 +128,16 @@ const CreateQuestionView = () => {
           <Controller
             name={`listen_file`}
             control={control}
+            rules={{
+              required: {
+                value: true,
+                message: "Đây là bắt buộc",
+              }
+            }}
             render={({ field }) => (
               <>
                 <input
                   type="file"
-                  {...register("listen_file", { required: "Đây là bắt buộc" })}
                   onChange={(e) => handleAudioUpload(e)}
                 />
                 {field.value}

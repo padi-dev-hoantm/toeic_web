@@ -90,7 +90,7 @@ const AdminExamCreateView = () => {
           errors={errors}
         />
         <div className="mt-[20px]">
-          <CustomButton text="Tạo mới"></CustomButton>
+          <CustomButton type="Submit" text="Tạo mới"/>
         </div>
       </form>
     </div>
