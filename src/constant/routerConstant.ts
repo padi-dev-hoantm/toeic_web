@@ -34,6 +34,12 @@ export const routerConstant = {
       index: "/teacher/result",
     }
   },
+  student: {
+    exam: {
+      index: "/student/exam",
+      result: "/student/exam/result",
+    }
+  },
   error404: "/404",
   error500: "/500",
   home: "/",

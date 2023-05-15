@@ -13,7 +13,7 @@ const TextEditor = ({
   errors,
   ...rest
 }: any) => {
-  const quillRef = useRef();
+  const quillRef = useRef<ReactQuill>();
 
   const imageHandler = () => {
     const input = document.createElement("input");
@@ -35,6 +35,8 @@ const TextEditor = ({
           const response = xhr.responseText;
           console.log(123, JSON.parse(response).paths[0]);
           const linkImg = JSON.parse(response).paths[0];
+          if (!quillRef) return;
+          if (!quillRef.current) return;
           const quill = quillRef.current.getEditor();
           const range = quill.getSelection(true);
           quill.insertEmbed(range.index, "image", linkImg);
@@ -54,11 +56,10 @@ const TextEditor = ({
         rules={rules}
         render={({ field: { value, onChange } }) => (
           <div
-            className={`max-w-[400px] rounded-md border ${
-              errors && errors[name] && errors[name].message
+            className={`max-w-[400px] rounded-md border ${errors && errors[name] && errors[name].message
                 ? "border-red-400"
                 : "border-neutral/5"
-            }`}
+              }`}
           >
             <ReactQuill
               {...rest}

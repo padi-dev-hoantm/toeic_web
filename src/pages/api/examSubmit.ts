@@ -12,7 +12,7 @@ export const useMutationSubmitExam = () => {
     });
 }
 
-export const useQueryGetExamSubmitm = () => {
+export const useQueryGetExamSubmit = () => {
     return useQuery(
         ['get-exam-submit'],
         () => {
