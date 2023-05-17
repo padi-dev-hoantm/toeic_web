@@ -23,18 +23,23 @@ const LoginView = () => {
   const handleLogin: SubmitHandler<IFormLogin> = (value) => {
     mutateLogin(value, {
       onSuccess: (data) => {
-        addCookie(data.data);
-        alert("Bạn đã đăng nhập thành công");
-        router.push(routerConstant.admin.dashboard);
+        if (!data.data) {
+          alert("Mật khẩu chưa chính xác");
+        }
+        else {
+          addCookie(data.data);
+          alert("Bạn đã đăng nhập thành công");
+          router.push(routerConstant.admin.dashboard);
+        }
       },
       onError: () => {
-        alert("Đang xảy ra lỗi, vui lòng thử lại sau");
+        alert("Email chưa chính xác");
       },
     });
   };
   return (
     <div className="px-[30%] mt-[15%] ">
-      <form onClick={handleSubmit(handleLogin)} className="">
+      <form onSubmit={handleSubmit(handleLogin)} className="">
         <Label text="Email:" />
         <InputCommon
           type="text"
