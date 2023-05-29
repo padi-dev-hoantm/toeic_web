@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-const AdminTeacherDetailView = () => {
+const AdminDetailCandidateView = () => {
   const router = useRouter();
   const teacherId = router.query.teacher_id
   const {
@@ -30,22 +30,11 @@ const AdminTeacherDetailView = () => {
     reset(detailTeacher)
   }, [detailTeacher])
 
-  const onSubmit: SubmitHandler<IRegister> = (value) => {
-    const { CreatedAt, UpdatedAt, DeletedAt, ID, email, ...rest } = value
-    const newVal = Object.assign(rest)
-    mutate(newVal, {
-      onSuccess: () => {
-        router.push(routerConstant.admin.teacher.index)
-      }
-    })
-
-  }
 
   return (
     <>
-      <Label text="Chi tiết thông tin giảng viên:" />
+      <Label text="Chi tiết thông tin thí sinh:" />
       <div className="">
-        <form onSubmit={handleSubmit(onSubmit)} className="">
 
           <Label text="Họ và tên:" />
           <p className="ml-[20px]">- {detailTeacher?.name}</p>
@@ -59,10 +48,9 @@ const AdminTeacherDetailView = () => {
           <Label text="Địa chỉ" />
           <p className="ml-[20px]">- {detailTeacher?.address}</p>
 
-        </form>
       </div>
     </>
   );
 };
 
-export default AdminTeacherDetailView;
+export default AdminDetailCandidateView;

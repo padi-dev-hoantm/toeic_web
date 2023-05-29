@@ -1,3 +1,4 @@
+import { ID_PERSON } from "@/constant/constant";
 import { routerConstant } from "@/constant/routerConstant";
 import { sidebarItemAdmin, sidebarItemTeacher } from "@/constant/sidebarConstant";
 import { useQueryGetMe } from "@/pages/api/auth.api";
@@ -6,14 +7,18 @@ import { addCookie } from "@/untils/addCookies";
 import { userRole } from "@/untils/role";
 import Link from "next/link";
 import React from "react";
+import Cookies from "universal-cookie";
 
 const SidebarAdmin = () => {
   const currentMenuItem = useCurrentMenuItemState();
+  const cookies = new Cookies();
 
   const { data: dataMe, isFetchedAfterMount } = useQueryGetMe();
   const data = dataMe?.data;
   addCookie(data)
+  const role = cookies.get(ID_PERSON)
 
+  console.log(role)
   return <>
     {
       isFetchedAfterMount && (
@@ -25,30 +30,42 @@ const SidebarAdmin = () => {
             <p >{userRole(data?.role)}</p>
           </div>
           <div className="flex flex-col">
-            {sidebarItemAdmin.map((item) => (
-              <Link
-                className={`p-2 my-2 ${currentMenuItem === item.currentMenu
-                  ? "side-active"
-                  : "hover:bg-[lightsteelblue]"
-                  }`}
-                href={item.router}
-                key={item.id}
-              >
-                {item.name}
-              </Link>
-            ))}
-            { sidebarItemTeacher.map((item) => (
-              <Link
-                className={`p-2 my-2 ${currentMenuItem === item.currentMenu
-                  ? "side-active"
-                  : "hover:bg-[lightsteelblue]"
-                  }`}
-                href={``}
-                key={item.id}
-              >
-                {item.name}
-              </Link>
-            ))}
+            {
+
+              // role === 1 ?
+
+              // sidebarItemAdmin.map((item) => (
+              //   <Link
+              //     className={`p-2 my-2 ${currentMenuItem === item.currentMenu
+              //       ? "side-active"
+              //       : "hover:bg-[lightsteelblue]"
+              //       }`}
+              //     href={item.router}
+              //     key={item.id}
+              //   >
+              //     <div className="flex items-center">
+              //       <item.icon />
+              //       <span className="ml-[10px]">{item.name}</span>
+              //     </div>
+              //   </Link>
+              // ))
+              // : 
+              sidebarItemTeacher.map((item) => (
+                <Link
+                  className={`p-2 my-2 ${currentMenuItem === item.currentMenu
+                    ? "side-active"
+                    : "hover:bg-[lightsteelblue]"
+                    }`}
+                  href={item.router}
+                  key={item.id}
+                >
+                  <div className="flex items-center">
+                    <item.icon />
+                    <span className="ml-[10px]">{item.name}</span>
+                  </div>
+                </Link>
+              ))
+            }
           </div>
         </div>
       )

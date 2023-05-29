@@ -71,11 +71,6 @@ export const UploadImage = ({
             return Upload.LIST_IGNORE;
         }
 
-        if (file.size > maxSize * 1024 * 1024) {
-            setError(`アップロード画像のサイズ上限は ${maxSize}です。`);
-            return Upload.LIST_IGNORE;
-        }
-
         const _URL = window.URL || window.webkitURL;
         const img = new Image();
         img.src = _URL.createObjectURL(file);
@@ -104,7 +99,7 @@ export const UploadImage = ({
                 fileList={fileList}
                 onPreview={handlePreview}
                 onChange={handleChangeImage}
-                name='files'
+                name='file'
                 beforeUpload={(file) => handleBeforeUpload(file)}
                 accept='.png, .jpg, .webp'
                 method='POST'

@@ -2,46 +2,35 @@ import CustomButton from "@/components/common/Button";
 import DatePickerCommon from "@/components/common/DatePicker";
 import InputCommon from "@/components/common/InputCommon";
 import { Label } from "@/components/common/Label";
-import { UploadImage } from "@/components/common/UploadImage";
 import { PHONE, REGEX_EMAIL } from "@/constant/constant";
 import { routerConstant } from "@/constant/routerConstant";
 import { useMutationRegister } from "@/pages/api/auth.api";
 import { IRegister } from "@/type/common.type";
-import { UploadFile, UploadProps } from "antd";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-const AdminTeacherCreateView = () => {
+const AdminCandidateCreate = () => {
   const router = useRouter();
-  const [fileImage, setFileImage] = useState<UploadFile[]>([]);
 
   const {
     formState: { errors },
     control,
-    setValue,
     handleSubmit,
   } = useForm<IRegister>({
     mode: "onChange",
   });
 
-  const handleChangeImage: UploadProps['onChange'] = ({ fileList: newFileList }) => {
-    console.log(123, newFileList)
-    setValue('avatar', newFileList?.[0]?.response?.data?.file);
-    setFileImage(newFileList);
-  };
   const { mutate } = useMutationRegister()
 
   const onSubmit: SubmitHandler<IRegister> = (value) => {
     const { date_of_birth, ...rest } = value
     if (!date_of_birth) return
     const date = `${new Date(date_of_birth).getFullYear() + '-' + new Date(date_of_birth).getMonth() + '-' + new Date(date_of_birth).getDate()}`
-    console.log(111, date)
-    const role = { role: 3 }
+    const role = { role: 2 }
     const newVal = Object.assign(role, rest, { date_of_birth: date })
     mutate(newVal, {
       onSuccess: () => {
-        router.push(routerConstant.admin.teacher.index)
+        router.push(routerConstant.admin.candidate.index)
       }
     })
 
@@ -49,7 +38,7 @@ const AdminTeacherCreateView = () => {
 
   return (
     <>
-      <Label text="Mời nhập thông tin giảng viên:" />
+      <Label text="Mời nhập thông tin thí sinh:" />
       <div className="">
         <form onSubmit={handleSubmit(onSubmit)} className="">
 
@@ -84,27 +73,6 @@ const AdminTeacherCreateView = () => {
                 message: "Email chưa đúng định dạng",
               },
             }}
-          />
-          <Label text="Mã số:" />
-          <InputCommon
-            type='text'
-            name='code'
-            control={control}
-            errors={errors}
-            isRequired={true}
-            rules={{
-              required: {
-                value: true,
-                message: "Đây là bắt buộc",
-              },
-            }}
-          />
-          <Label text="Ảnh đại diện:" />
-          <UploadImage
-            fileList={fileImage}
-            handleChangeImage={handleChangeImage}
-            fileName='avatar'
-            number={1}
           />
           <Label text="Ngày tháng năm sinh:" />
           <DatePickerCommon
@@ -173,6 +141,6 @@ const AdminTeacherCreateView = () => {
   );
 };
 
-export default AdminTeacherCreateView;
+export default AdminCandidateCreate;
 
 

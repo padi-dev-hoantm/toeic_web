@@ -11,13 +11,11 @@ import { routerConstant } from "@/constant/routerConstant";
 
 const StudentExamView = () => {
     const {
-        formState: { errors },
-        control,
         handleSubmit,
         register,
     } = useForm();
     const router = useRouter()
-    const examId = 8
+    const examId = 1
     const { data, isFetchedAfterMount } = useQueryGetDetailExam(examId)
     const { mutate } = useMutationSubmitExam()
     const detailExam = data?.data
@@ -41,6 +39,7 @@ const StudentExamView = () => {
             document.removeEventListener('visibilitychange', handleVisibilityChange);
         };
     }, []);
+
 
     const onSubmit = (data: any) => {
         const submissionResults = Object.entries(data).map(([name, value]) => ({
@@ -67,33 +66,39 @@ const StudentExamView = () => {
         {
             isFetchedAfterMount && (
                 <form onSubmit={handleSubmit(onSubmit)}>
+
                     <div className="fixed right-0 bottom-0 text-2xl flex items-center bg-[#1890FF] text-white font-bold p-4 gap-2">
                         <HourglassOutlined />
-                        <Countdown date={Date.now() + time} />
-                        {
-                            detailExam?.listen_file &&
-                            <ReactAudioPlayer
-                                src={`${detailExam?.listen_file}`}
-                                autoPlay={true}
-                                controls={true}
-                            />
-                        }
+                        <Countdown date={Date.now() + 20000000} />
                     </div>
                     <div className="mx-[50px] mt-[40px]">
 
                         <div className="text-center mb-[50px] box-shadow-item p-[30px]">
-                            <p>Bài thi: {detailExam?.exam_name}</p>
-                            <p>Mô tả bài thi: {detailExam?.exam_description}</p>
+                            <p className="text-[24px] font-bold">Bài thi: {detailExam?.exam_name}</p>
+                            <p className="my-[20px]">Mô tả bài thi: {detailExam?.exam_description}</p>
+                            <p>Bấm vào đây để nghe:</p>
+                            <div className="flex justify-center">
+                                {
+                                    !!detailExam?.listen_file &&
+                                    <ReactAudioPlayer
+                                        src={`${detailExam?.listen_file}`}
+                                        autoPlay={true}
+                                        controls={true}
+                                    />
+                                }
+                            </div>
                         </div>
                         <div className="box-shadow-item p-[30px]">
                             {detailExam?.exam_questions?.map((question: any, questionIndex: number) => {
+                                const questionText = question?.question_text;
+
                                 return (
                                     <div key={questionIndex}>
-                                        id question: {question.id}
-                                        <p className="text-lg font-bold">Câu {questionIndex + 1}: {question?.question_text}</p>
+                                        <p className="text-lg font-bold">Câu {questionIndex + 1}:
+                                            <div dangerouslySetInnerHTML={{ __html: questionText }}></div>
+                                        </p>
                                         {question.answers?.map((answer: any, answerIndex: number) => (
                                             <div key={answerIndex}>
-                                                id answer: {answer.id}
                                                 <input {...register(`answer_${question.id}`)} type="radio" value={answer.id} />
                                                 <span className="ml-[10px]">{answer.content}</span>
                                             </div>
@@ -103,7 +108,7 @@ const StudentExamView = () => {
                             })}
                         </div>
                     </div>
-                    <div className="mt-[20px] text-center ">
+                    <div className="text-center fixed top-0 right-0">
                         <CustomButton type="Submit" text="Nộp bài thi" />
                     </div>
                 </form>

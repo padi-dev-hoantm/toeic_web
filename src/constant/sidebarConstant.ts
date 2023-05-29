@@ -1,75 +1,72 @@
+import { LogoutOutlined, BookOutlined, UserOutlined, FileExcelOutlined  } from "@ant-design/icons"
 import { routerConstant } from "./routerConstant"
 
 export const sidebarItemAdmin = [
     {
         id: 1,
-        name: 'Dash board',
-        icon: '',
+        name: 'Thống kê',
+        icon: FileExcelOutlined,
         currentMenu: 'dashboard',
         router: routerConstant.admin.dashboard
     },
     {
         id: 2,
-        name: 'List teacher',
-        icon: '',
+        name: 'Giảng viên',
+        icon: UserOutlined,
         currentMenu: 'listTeacher',
         router: routerConstant.admin.teacher.index
     },
     {
+        id: 6,
+        name: 'Thí sinh',
+        icon: UserOutlined,
+        currentMenu: 'student',
+        router: routerConstant.admin.candidate.index
+    },
+    {
         id: 3,
-        name: 'Schedule exam',
-        icon: '',
+        name: 'Bài thi',
+        icon: BookOutlined,
         currentMenu: 'exam',
         router: routerConstant.admin.exam.index
     },
     {
-        id: 4,
-        name: 'Question',
-        icon: '',
-        currentMenu: 'question',
-        router: routerConstant.admin.question.index
-    },
-    {
         id: 5,
-        name: 'Logout',
-        icon: '',
+        name: 'Đăng xuất',
+        icon: LogoutOutlined,
         currentMenu: 'Logout',
-        router: '',
-        onclick: () => {
-            console.log('okkk');
-        }
+        router: routerConstant.login,
     }
 ]
 
 export const sidebarItemTeacher = [
     {
-        id: 1,
-        name: 'Dash board',
-        icon: '',
+        id: 9,
+        name: 'Thống kê',
+        icon: FileExcelOutlined,
         currentMenu: 'teacherDashboard',
         router: routerConstant.teacher.index
     },
     {
-        id: 2,
-        name: 'Thí sinh',
-        icon: '',
+        id: 10,
+        name: 'Mời thi',
+        icon: UserOutlined,
         currentMenu: 'student',
         router: routerConstant.teacher.student.index
     },
     {
-        id: 3,
+        id: 11,
         name: 'Đề thi',
-        icon: '',
+        icon: BookOutlined,
         currentMenu: 'exam-teacher',
         router: routerConstant.teacher.exam.index
 
     },
     {
-        id: 4,
-        name: 'Kết quả thi',
-        icon: '',
-        currentMenu: 'result',
-        router: routerConstant.teacher.result.index
-
+        id: 12,
+        name: 'Đăng xuất',
+        icon: LogoutOutlined,
+        currentMenu: 'Logout',
+        router: routerConstant.login,
     }
 ]

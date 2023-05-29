@@ -8,9 +8,13 @@ import Qill from "@/components/common/Qill";
 import { useMutationCreateExam } from "@/pages/api/exams";
 import TextAreaCommon from "@/components/common/TextAreaCommon";
 import { ErrorMessage } from '@hookform/error-message';
+import { useRouter } from "next/router";
+import { routerConstant } from "@/constant/routerConstant";
+import dayjs from "dayjs";
 
 const CreateQuestionView = () => {
   const { mutate } = useMutationCreateExam();
+  const router = useRouter();
 
   const {
     register,
@@ -55,11 +59,35 @@ const CreateQuestionView = () => {
     };
   };
 
-  const onSubmit = (data: any) => {
-    mutate(data, {
-      onSuccess: () => {
-        alert("Bạn đã tạo thành công");
-      },
+  const onSubmit = (value: any) => {
+    const rest: { question_case: any; question_text: any; answers: { is_correct: any; content: any; }[]; }[] = [];
+    value.exam_questions.forEach(({ question_case, answers, question_text }: any) => {
+      const newAnswer: { is_correct: any; content: any; }[] = [];
+      answers.forEach(({ is_correct, content }: any) => {
+        newAnswer.push({ is_correct: parseInt(is_correct), content });
+      });
+      rest.push({ question_case: Number(question_case), question_text: question_text, answers: newAnswer });
+    });
+
+    const dataSubmit = {
+      exam_name: value.exam_name,
+      exam_description: value.exam_description,
+      exam_start_time: value.exam_start_time,
+      exam_end_time: value.exam_end_time,
+      listen_file: value.listen_file,
+      exam_questions: rest,
+    }
+    console.log("dataSubmit", dataSubmit)
+    mutate(dataSubmit, {
+      onSuccess: (data) => {
+        if (!data.data) {
+          alert("Có lỗi đang xảy ra, mời bạn kiểm tra lại");
+        }
+        else {
+          alert("Bạn đã tạo bài thi thành công");
+          router.push(routerConstant.admin.exam.index);
+        }
+      }
     });
   };
   return (
@@ -110,7 +138,7 @@ const CreateQuestionView = () => {
           }}
           errors={errors}
         />
-        <Label text="Thời gian kết thúc bài thi:" />
+        {/* <Label text="Thời gian kết thúc bài thi:" />
         <DatePickerCommon
           name="exam_end_time"
           control={control}
@@ -122,18 +150,13 @@ const CreateQuestionView = () => {
             },
           }}
           errors={errors}
-        />
+        /> */}
         <div className="flex flex-col">
           <Label text="Nhập file nghe:" />
           <Controller
             name={`listen_file`}
             control={control}
-            rules={{
-              required: {
-                value: true,
-                message: "Đây là bắt buộc",
-              }
-            }}
+
             render={({ field }) => (
               <>
                 <input

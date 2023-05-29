@@ -27,9 +27,6 @@ const DatePickerCommon = ({
               onChange={onChange}
               bordered={false}
               showTime={showTime}
-              disabledDate={(current) => {
-                return current && current < dateDisableBefore;
-              }}
               className='w-full'
             />
           </div>

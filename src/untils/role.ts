@@ -3,10 +3,10 @@ export const userRole = (role: number) => {
         return "ADMIN"
     }
     else if (role === 2) {
-        return "STUDENT"
+        return "Sinh viên"
     }
     else if (role === 3) {
-        return "LECTURER"
+        return "Giảng viên"
     }
     else {
         return;

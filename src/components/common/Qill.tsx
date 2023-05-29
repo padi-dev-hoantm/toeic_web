@@ -1,9 +1,8 @@
 import dynamic from "next/dynamic";
 import { useFieldArray, useForm } from "react-hook-form";
 import CustomButton from "./Button";
-import InputCommon from "./InputCommon";
 import { Label } from "./Label";
-import SelectInputCommon from "./SelectInputCommon";
+import RadioCommon from "./RadioCommon";
 
 const Qill = ({ index, control, register, type }: any) => {
   const {
@@ -17,9 +16,6 @@ const Qill = ({ index, control, register, type }: any) => {
 
   const {
     formState: { errors },
-    setValue,
-    setError,
-    clearErrors,
   } = useForm();
   const TextEditor = dynamic(() => import("./TextEditor"), {
     ssr: false,
@@ -43,45 +39,53 @@ const Qill = ({ index, control, register, type }: any) => {
         }}
         errors={errors}
       />
-      <Label text="Part:" />
-      <InputCommon
-        type="text"
-        name={`exam_questions.${index}.question_case`}
-        control={control}
-        errors={errors}
-        isRequired={true}
-        rules={{
-          required: {
-            value: true,
-            message: "Đây là bắt buộc",
-          },
-        }}
-      />
-      <p className="text-red-600">* 1 là đáp án đúng - 0 là đáp án sai</p>
+      <Label text="Chọn phần" />
+      <div className="flex gap-4">
+        <label>
+          <input
+
+            type="radio"
+            value={2}
+            {...register(`exam_questions.${index}.question_case`)}
+          />
+          Phần nghe
+        </label>
+
+        <label>
+          <input
+            type="radio"
+            value={1}
+            {...register(`exam_questions.${index}.question_case`)}
+          />
+          Phần đọc
+        </label>
+      </div>
+      <Label text="Thêm đáp án" />
       {fields1.map((item2, index2) => {
         return (
           <div
             key={index2}
             className="flex gap-[10px] mb-[20px] ml-[10px] h-[30px]"
           >
-            <div className="w-[42px]">
-              <SelectInputCommon
-                control={control}
-                name={`exam_questions.${index}.answers.${index2}.is_correct`}
-                isRequired={true}
-                rules={{
-                  required: {
-                    value: true,
-                    message: "day la bat buoc",
-                  },
-                }}
-                defaultValue={0}
-                options={[
-                  { value: 0, label: 0 },
-                  { value: 1, label: 1 },
-                ]}
-                errors={errors}
-              />
+            <div className="flex gap-3">
+
+              <label>
+                <input
+                  type="radio"
+                  value={1}
+                  {...register(`exam_questions.${index}.answers.${index2}.is_correct`)}
+                />
+                Đúng
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  value={0}
+                  {...register(`exam_questions.${index}.answers.${index2}.is_correct`)}
+                />
+                Sai
+              </label>
             </div>
             <div>
               <input
@@ -89,7 +93,6 @@ const Qill = ({ index, control, register, type }: any) => {
                 className="w-[600px] rounded-md border border-gray-400 h-[34px] pl-[5px]"
                 {...register(
                   `exam_questions.${index}.answers.${index2}.content`,
-                  { require: true }
                 )}
               />
             </div>

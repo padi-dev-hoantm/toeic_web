@@ -34,7 +34,30 @@ export interface IRegister{
   CreatedAt? : string;
   DeletedAt? : string;
   UpdatedAt? : string;
+  code?: string;
+  avatar?: string;
+}
 
+export interface ParamsListUser{
+  code?: string;
+  offset?: number;
+  limit?: number;
+}
+
+export interface FormUser{
+  ID?: number;
+  email: string;
+  name: string;
+  password: string;
+  date_of_birth: string;
+  phone_number: string;
+  address: string;
+  role?: number;
+  CreatedAt? : string;
+  DeletedAt? : string;
+  UpdatedAt? : string;
+  code: string;
+  avatar: string;
 }
 
 export interface ISchedule{

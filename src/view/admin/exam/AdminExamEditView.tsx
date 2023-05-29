@@ -5,10 +5,11 @@ import CustomButton from "@/components/common/Button";
 import { useForm } from "react-hook-form";
 import DatePickerCommon from "@/components/common/DatePicker";
 import InputCommon from "@/components/common/InputCommon";
-import { useQueryGetDetailExam } from "@/pages/api/exams";
+import { useQueryGetDetailExam, useQueryGetListExam } from "@/pages/api/exams";
 import { useRouter } from "next/router";
+import SelectInputCommon from "@/components/common/SelectInputCommon";
 
-const AdminExamEditView = () => {
+const AdminExamCreateView = () => {
   const {
     formState: { errors },
     control,
@@ -19,36 +20,23 @@ const AdminExamEditView = () => {
     defaultValues: {},
     mode: "onChange",
   });
-
-  const router = useRouter()
-  const id = router.query.id
-
-  const { data } = useQueryGetDetailExam(Number(id))
-  console.log(data)
-  const exam = ScheduleFakeData[0];
-
-  useEffect(() => {
-    if (!data) return;
-    if (!data.data) return;
-
-    const { ...rest } = data.data;
-    console.log('rest', rest)
-
-    reset(rest);
-
-  }, [data, reset]);
+  const { data } = useQueryGetListExam()
+  const listExam = data?.data
+  const optionsExam = listExam?.map((exam: any) =>
+    Object.assign({ id: exam.id }, { value: exam.exam_name }),
+  );
 
   const onSubmit = (value: any) => {
-    console.log('ok', value)
+    console.log('ook', value)
   }
 
   return (
     <div className="pt-[30px]">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Label text={`Bài thi: ${exam.exam_name}`} />
+        {/* <Label text='Tên kì thi:' />
         <InputCommon
           type='text'
-          name='exam_name'
+          name='test_name'
           control={control}
           errors={errors}
           isRequired={true}
@@ -61,7 +49,7 @@ const AdminExamEditView = () => {
         />
         <Label text="Chọn ngày và giờ thi: " />
         <DatePickerCommon
-          name='exam_start_time'
+          name='test_start_time'
           control={control}
           isRequired={true}
           label='Chọn ngày và giờ thi:'
@@ -72,15 +60,41 @@ const AdminExamEditView = () => {
             },
           }}
           errors={errors}
-        />
+        /> */}
         <Label text="Chọn bài thi:" />
-
+        <SelectInputCommon
+          control={control}
+          name='exam_name'
+          isRequired={true}
+          rules={{
+            required: {
+              value: true,
+              message: 'day la bat buoc',
+            },
+          }}
+          options={optionsExam}
+          errors={errors}
+        />
+        <Label text="Chọn giảng viên:" />
+        <SelectInputCommon
+          control={control}
+          name='teacher_name'
+          isRequired={true}
+          rules={{
+            required: {
+              value: true,
+              message: 'day la bat buoc',
+            },
+          }}
+          options={optionsExam}
+          errors={errors}
+        />
         <div className="mt-[20px]">
-          <CustomButton text="Cập nhật"></CustomButton>
+          <CustomButton type="Submit" text="Tạo mới"/>
         </div>
       </form>
     </div>
   );
 };
 
-export default AdminExamEditView;
+export default AdminExamCreateView;

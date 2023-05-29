@@ -5,6 +5,7 @@ import Image from "next/image";
 import CustomButton from "@/components/common/Button";
 import { routerConstant } from "@/constant/routerConstant";
 import { formatDateTime } from "@/untils/handleDateTime";
+import CustomButtonDelete from "@/components/common/ButtonDelete";
 
 export const AdminExamItem = ({
   id,
@@ -16,11 +17,16 @@ export const AdminExamItem = ({
     <div className="p-5 items-center my-[30px] box-shadow-item rounded-md	flex justify-between">
       <div className="mr-[30%] ">
         <p>Bài thi: {exam_name}</p>
-        <p>Bài thi bắt đầu lúc: {formatDateTime(exam_start_time) }</p>
+        <p>Bài thi bắt đầu lúc: {formatDateTime(exam_start_time)}</p>
       </div>
-      <Link href={routerConstant.admin.exam.edit(Number(id))}>
-        <CustomButton text="Chi tiết" />
-      </Link>
+      <div className="flex gap-2">
+        <Link href={routerConstant.admin.candidate.detail(Number(id))}>
+          <CustomButtonDelete text="Xóa" />
+        </Link>
+        <Link href={routerConstant.admin.candidate.detail(Number(id))}>
+          <CustomButton text="Chi tiết" />
+        </Link>
+      </div>
     </div>
   );
 };

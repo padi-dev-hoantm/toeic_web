@@ -1,27 +1,48 @@
-import { sidebarItemTeacher } from "@/constant/sidebarConstant";
+import { routerConstant } from "@/constant/routerConstant";
+import { sidebarItemAdmin, sidebarItemTeacher } from "@/constant/sidebarConstant";
 import { useQueryGetMe } from "@/pages/api/auth.api";
+import { useCurrentMenuItemState } from "@/recoil/side-bar.recoil";
+import { addCookie } from "@/untils/addCookies";
+import { userRole } from "@/untils/role";
+import Link from "next/link";
 import React from "react";
 
 const SidebarTeacher = () => {
-  const user = {
-    name: "Hoa Nguyen",
-    role: "Teacher",
-  };
+  const currentMenuItem = useCurrentMenuItemState();
 
-  const {data} = useQueryGetMe();
-  console.log('data', data)
+  const { data: dataMe, isFetchedAfterMount } = useQueryGetMe();
+  const data = dataMe?.data;
+  addCookie(data)
 
-  return (
-    <div className="bg-[#FAFAFA] w-[280px] sidebar-shadow left-0 h-[100vh] pl-3 ">
-      <div className="mt-[20px]">
-        <h1 className="text-2xl">{user.name}</h1>
-        <p className="text-base font-bold">{user.role}</p>
-      </div>
-      {sidebarItemTeacher.map((item) => (
-        <p key={item.id}>{item.name} </p>
-      ))}
-    </div>
-  );
+  return <>
+    {
+      isFetchedAfterMount && (
+        <div className="bg-[#FAFAFA] left-0 h-full p-3 h-screen pt-[30px] ">
+          <div className="text-center text-base font-bold uppercase">
+            <Link href={routerConstant.me}>
+              <h1 className="">{data?.name}</h1>
+            </Link>
+            <p >{userRole(data?.role)}</p>
+          </div>
+          <div className="flex flex-col">
+            { sidebarItemTeacher.map((item) => (
+              <Link
+                className={`p-2 my-2 ${currentMenuItem === item.currentMenu
+                  ? "side-active"
+                  : "hover:bg-[lightsteelblue]"
+                  }`}
+                href={``}
+                key={item.id}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )
+    }
+  </>
+    ;
 };
 
 export default SidebarTeacher;

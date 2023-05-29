@@ -8,6 +8,11 @@ export const routerConstant = {
       detail: (teacher_id: number) => `/admin/teacher/${teacher_id}`,
       create: "/admin/teacher/create"
     },
+    candidate: {
+      index: "/admin/candidate",
+      detail: (candidate_id: number) => `/admin/candidate/${candidate_id}`,
+      create: "/admin/candidate/create"
+    },
     exam: {
       index: "/admin/schedule-exam",
       edit: (exam_id: number) => `/admin/schedule-exam/${exam_id}`,
@@ -23,7 +28,7 @@ export const routerConstant = {
     dashboard: "/admin/dashboard",
     student: {
       index: "/teacher/student",
-      invite: "/teacher/invite",
+      invite: "/teacher/student/invite",
     },
     exam: {
       index: "/teacher/schedule-exam",

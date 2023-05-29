@@ -1,6 +1,6 @@
 import LayoutAdmin from "@/components/layouts/LayoutAdmin";
 import { currentMenuItemState } from "@/recoil/side-bar.recoil";
-import AdminDashboardView from "@/view/admin/dashboard/AdminDashboardView";
+import TeacherInviteListView from "@/view/teacher/Invite/TeacherInviteListView";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 
@@ -11,8 +11,8 @@ const Teacher = () => {
     }, []);
 
     return (
-        <LayoutAdmin title="Teacher">
-            index student
+        <LayoutAdmin title="Candidate">
+            <TeacherInviteListView />
         </LayoutAdmin>
     );
 };

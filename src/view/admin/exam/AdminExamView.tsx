@@ -12,7 +12,6 @@ import { ISchedule } from "@/type/common.type";
 const AdminExamView = () => {
   const {data } = useQueryGetListExam()
   const exams = data?.data
-  if(!exams) return <div className="text-center">Không có bài thi nào</div>
   
   return (
     <div className="mt-[20px]">
@@ -22,7 +21,7 @@ const AdminExamView = () => {
           <CustomButton text="Tạo mới" />
         </Link>
       </div>
-      {exams?.map((exam : ISchedule) => (
+      { exams && exams?.map((exam : ISchedule) => (
         <div key={exam.id}>
           <AdminExamItem
             id={exam.id}

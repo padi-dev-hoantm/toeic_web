@@ -1,12 +1,9 @@
+import { Box, Grid } from "@mui/material";
 import { NextPage } from "next";
 import Head from "next/head";
-import React, { ReactNode } from "react";
-import Footer from "../common/Footer";
-import Header from "../common/Header";
+import { ReactNode } from "react";
 import SidebarAdmin from "../admin/common/SidebarAdmin";
-import { Box, Grid } from "@mui/material";
-import Paper from "@mui/material/Paper";
-import { styled } from "@mui/material/styles";
+import Header from "../common/Header";
 
 type Props = {
   children: ReactNode;
@@ -31,7 +28,6 @@ const LayoutBasic: NextPage<Props> = ({ children, title }) => {
             </Grid>
           </Grid>
         </Box>
-        <Footer />
       </div>
     </>
   );

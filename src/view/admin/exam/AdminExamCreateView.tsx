@@ -33,7 +33,7 @@ const AdminExamCreateView = () => {
   return (
     <div className="pt-[30px]">
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* <Label text='Tên kì thi:' />
+        <Label text='Tên kì thi:' />
         <InputCommon
           type='text'
           name='test_name'
@@ -60,7 +60,7 @@ const AdminExamCreateView = () => {
             },
           }}
           errors={errors}
-        /> */}
+        />
         <Label text="Chọn bài thi:" />
         <SelectInputCommon
           control={control}
