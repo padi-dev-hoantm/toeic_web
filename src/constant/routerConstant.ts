@@ -15,7 +15,7 @@ export const routerConstant = {
     },
     exam: {
       index: "/admin/schedule-exam",
-      edit: (exam_id: number) => `/admin/schedule-exam/${exam_id}`,
+      detail: (exam_id: number) => `/admin/schedule-exam/${exam_id}`,
       create: "/admin/schedule-exam/create"
     },
     question: {
@@ -32,7 +32,7 @@ export const routerConstant = {
     },
     exam: {
       index: "/teacher/schedule-exam",
-      edit: (exam_id: number) => `/teacher/schedule-exam/edit/${exam_id}`,
+      detail: (exam_id: number) => `/teacher/schedule-exam/edit/${exam_id}`,
       create: "/teacher/schedule-exam/create"
     },
     result: {

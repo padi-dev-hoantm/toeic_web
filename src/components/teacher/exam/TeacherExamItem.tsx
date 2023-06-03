@@ -10,7 +10,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useMutationDeleteExam } from "@/pages/api/exams";
 import { Modal } from "antd";
 
-export const AdminExamItem = ({
+export const TeacherExamItem = ({
   id,
   exam_name,
   exam_start_time,
@@ -50,7 +50,7 @@ export const AdminExamItem = ({
       </div>
       <div className="flex gap-2">
         <CustomButtonDelete onClick={showModal} text="Xóa" />
-        <Link href={routerConstant.admin.candidate.detail(Number(id))}>
+        <Link href={routerConstant.teacher.exam.detail(Number(id))}>
           <CustomButton text="Chi tiết" />
         </Link>
       </div>

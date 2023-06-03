@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import { routerConstant } from "@/constant/routerConstant";
 import dayjs from "dayjs";
 
-const CreateQuestionView = () => {
+const TeacherExamCreateView = () => {
   const { mutate } = useMutationCreateExam();
   const router = useRouter();
 
@@ -151,7 +151,7 @@ const CreateQuestionView = () => {
           }}
           errors={errors}
         /> */}
-        <div className="flex flex-col">
+        {/* <div className="flex flex-col">
           <Label text="Nhập file nghe:" />
           <Controller
             name={`listen_file`}
@@ -172,7 +172,7 @@ const CreateQuestionView = () => {
             name="listen_file"
             render={({ message }) => <span className='text-xs text-red-400 mt-1'>{message}</span>}
           />
-        </div>
+        </div> */}
       </div>
       <div>
         {fields.map((item, index) => {
@@ -204,4 +204,4 @@ const CreateQuestionView = () => {
   );
 };
 
-export default CreateQuestionView;
+export default TeacherExamCreateView;

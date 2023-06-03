@@ -1,33 +1,43 @@
-import { Controller, useFieldArray, useForm } from "react-hook-form";
 import CustomButton from "@/components/common/Button";
 import CustomButtonDelete from "@/components/common/ButtonDelete";
 import DatePickerCommon from "@/components/common/DatePicker";
-import InputCommon from "@/components/common/InputCommon";
 import { Label } from "@/components/common/Label";
 import Qill from "@/components/common/Qill";
-import { useMutationCreateExam } from "@/pages/api/exams";
 import TextAreaCommon from "@/components/common/TextAreaCommon";
+import { routerConstant } from "@/constant/routerConstant";
+import { useMutationUpdateExam, useMutationUpdateQuestion, useQuerygetDetailByOwner } from "@/pages/api/exams";
 import { ErrorMessage } from '@hookform/error-message';
 import { useRouter } from "next/router";
-import { routerConstant } from "@/constant/routerConstant";
-import dayjs from "dayjs";
+import { useEffect } from "react";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 
-const CreateQuestionView = () => {
-  const { mutate } = useMutationCreateExam();
-  const router = useRouter();
-
+const TeacherExamDetailView = () => {
   const {
     register,
     control,
     formState: { errors },
     handleSubmit,
     setValue,
-    setError
+    setError,
+    reset
   } = useForm();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "exam_questions",
   });
+
+  const router = useRouter();
+  const examId = router.query.exam_id
+
+  const { data } = useQuerygetDetailByOwner(Number(examId));
+  const {mutate} = useMutationUpdateExam(Number(examId))
+  const {mutate: mutateUpdateQuestion} = useMutationUpdateQuestion(Number(examId))
+
+  const detailExam = data?.data
+  useEffect(() => {
+    reset(detailExam)
+
+  }, [detailExam])
 
   const handleAudioUpload = (e: any) => {
     const input = document.createElement("input");
@@ -84,8 +94,7 @@ const CreateQuestionView = () => {
           alert("Có lỗi đang xảy ra, mời bạn kiểm tra lại");
         }
         else {
-          alert("Bạn đã tạo bài thi thành công");
-          router.push(routerConstant.admin.exam.index);
+          router.push(routerConstant.teacher.exam.index);
         }
       }
     });
@@ -178,6 +187,7 @@ const CreateQuestionView = () => {
         {fields.map((item, index) => {
           return (
             <div key={item.id}>
+              <p>item.id: {item.id}</p>
               <Qill index={index} register={register} control={control} />
               <CustomButtonDelete
                 text="Xóa câu hỏi"
@@ -204,4 +214,4 @@ const CreateQuestionView = () => {
   );
 };
 
-export default CreateQuestionView;
+export default TeacherExamDetailView;

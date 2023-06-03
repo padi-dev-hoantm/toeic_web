@@ -4,7 +4,7 @@ import CustomButton from "./Button";
 import { Label } from "./Label";
 import RadioCommon from "./RadioCommon";
 
-const Qill = ({ index, control, register, type }: any) => {
+const Qill = ({ index, control, register }: any) => {
   const {
     fields: fields1,
     append: append1,
@@ -20,7 +20,6 @@ const Qill = ({ index, control, register, type }: any) => {
   const TextEditor = dynamic(() => import("./TextEditor"), {
     ssr: false,
   });
-
   return (
     <div className="mt-[50px] box-shadow-item pl-[20px] pt-[10px]">
       <Label text={`Câu: ${index + 1}`} />
@@ -41,13 +40,25 @@ const Qill = ({ index, control, register, type }: any) => {
       />
       <Label text="Chọn phần" />
       <div className="flex gap-4">
-        <label>
+        <RadioCommon
+          name={`exam_questions.${index}.question_case`}
+          control={control}
+          label='リセールの可否'
+          type='text'
+          isRequired={true}
+          listOption={[
+            { value: 2, label: 'Phần nghe' },
+            { value: 1, label: 'Phần đọc' },
+          ]}
+          errors={errors}
+        />
+        {/* <label>
           <input
-
             type="radio"
             value={2}
             {...register(`exam_questions.${index}.question_case`)}
           />
+          {`exam_questions.${index}.question_case`}
           Phần nghe
         </label>
 
@@ -58,18 +69,29 @@ const Qill = ({ index, control, register, type }: any) => {
             {...register(`exam_questions.${index}.question_case`)}
           />
           Phần đọc
-        </label>
+        </label> */}
       </div>
       <Label text="Thêm đáp án" />
       {fields1.map((item2, index2) => {
         return (
           <div
-            key={index2}
+            key={item2.id}
             className="flex gap-[10px] mb-[20px] ml-[10px] h-[30px]"
           >
             <div className="flex gap-3">
-
-              <label>
+              <RadioCommon
+                name={`exam_questions.${index}.answers.${index2}.is_correct`}
+                control={control}
+                label='リセールの可否'
+                type='text'
+                isRequired={true}
+                listOption={[
+                  { value: 1, label: 'Đúng' },
+                  { value: 0, label: 'Sai' },
+                ]}
+                errors={errors}
+              />
+              {/* <label>
                 <input
                   type="radio"
                   value={1}
@@ -85,7 +107,7 @@ const Qill = ({ index, control, register, type }: any) => {
                   {...register(`exam_questions.${index}.answers.${index2}.is_correct`)}
                 />
                 Sai
-              </label>
+              </label> */}
             </div>
             <div>
               <input

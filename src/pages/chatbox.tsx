@@ -1,4 +1,5 @@
 import React, { useRef } from "react"
+import { RedoOutlined } from '@ant-design/icons';
 
 interface Conversation {
   role: string
@@ -6,7 +7,6 @@ interface Conversation {
 }
 
 export default function ChatBox() {
-  // States
   const [value, setValue] = React.useState<string>("")
   const [conversation, setConversation] = React.useState<Conversation[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
@@ -21,7 +21,7 @@ export default function ChatBox() {
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       const chatHistory = [...conversation, { role: "user", content: value }]
-      const response = await fetch("https://api.openai.com/api/openAIChat", {
+      const response = await fetch("/api/chatGpt", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -45,23 +45,25 @@ export default function ChatBox() {
   }
 
   return (
-    <div className='w-full'>
-      <div className='flex flex-col items-center justify-center mt-40 text-center'>
-        <h1 className='text-6xl'>Hi there, I am AVA</h1>
+    <div className='w-[500px] h-[500px]'>
+      <div className='flex flex-col items-center justify-center text-center'>
         <div className='my-12'>
-          <p className='mb-6 font-bold'>Please type your prompt</p>
+          <p className='mb-6 font-bold'>Nhập câu hỏi vào đây:</p>
           <input
+            type="text"
             placeholder='Type here'
-            className='w-full max-w-xs input input-bordered input-secondary'
+            className='w-full border border-[#000] px-[10px] py-[5px] rounded'
             value={value}
             onChange={handleInput}
             onKeyDown={handleKeyDown}
           />
+
           <button
-            className='btn btn-primary btn-xs mt-6'
+            className='font-bold flex gap-[10px] items-center '
             onClick={handleRefresh}
           >
-            Start New Conversation
+            <RedoOutlined />
+            Bắt đầu cuộc trò chuyện mới
           </button>
         </div>
         <div className='textarea'>
@@ -71,7 +73,7 @@ export default function ChatBox() {
               {item.role === "assistant" ? (
                 <div className='chat chat-end'>
                   <div className='chat-bubble chat-bubble-secondary'>
-                    <strong className='badge badge-primary'>AVA</strong>
+                    <strong className='text-blue-500'>Chat Toeic</strong>
                     <br />
                     {item.content}
                   </div>
@@ -79,7 +81,7 @@ export default function ChatBox() {
               ) : (
                 <div className='chat chat-start'>
                   <div className='chat-bubble chat-bubble-primary'>
-                    <strong className='badge badge-secondary'>User</strong>
+                    <strong className='text-blue-500'>Tôi:</strong>
                     <br />
                     {item.content}
                   </div>

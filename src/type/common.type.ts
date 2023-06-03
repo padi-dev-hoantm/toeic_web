@@ -39,9 +39,9 @@ export interface IRegister{
 }
 
 export interface ParamsListUser{
-  code?: string;
   offset?: number;
   limit?: number;
+  code?: string;
 }
 
 export interface FormUser{

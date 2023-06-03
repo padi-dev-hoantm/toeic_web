@@ -9,7 +9,7 @@ import CustomButtonDelete from "@/components/common/ButtonDelete";
 import { useMutationDeleteUser } from "@/pages/api/auth.api";
 import { useQueryClient } from "@tanstack/react-query";
 
-export const AdminTeacherItem = ({ ID, name, email, avatar }: IRegister) => {
+export const AdminCandidateItem = ({ ID, name, email, avatar }: IRegister) => {
   const [open, setOpen] = useState(false);
   const {mutate: mutateDeleteUser} = useMutationDeleteUser()
   const queryClient = useQueryClient();
@@ -21,7 +21,7 @@ export const AdminTeacherItem = ({ ID, name, email, avatar }: IRegister) => {
   const handleOk = () => {
     mutateDeleteUser(Number(ID), {
       onSuccess: () => {
-        queryClient.refetchQueries(['get-teacher']).then();
+        queryClient.refetchQueries(['get-student']).then();
         handleCancel()
       }
     })
@@ -34,7 +34,7 @@ export const AdminTeacherItem = ({ ID, name, email, avatar }: IRegister) => {
   return (
     <div className="flex p-5 items-center my-[30px]  rounded-md	box-shadow-item justify-between">
       <Modal
-        title="Bạn có chắc chắn xóa giảng viên này không?"
+        title="Bạn có chắc chắn xóa thí sinh này không?"
         open={open}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -50,13 +50,13 @@ export const AdminTeacherItem = ({ ID, name, email, avatar }: IRegister) => {
           objectFit="contain"
         />
         <p className="flex flex-col pl-2.5 ">
-          <span className="flex gap-2"><span>Giảng viên: </span>{name}</span>
+          <span className="flex gap-2"><span>Thí sinh: </span>{name}</span>
           <span className="flex gap-2"><span>Email: </span>{email}</span>
         </p>
       </div>
       <div className="flex gap-2">
         <CustomButtonDelete onClick={showModal} text="Xóa" />
-        <Link href={routerConstant.admin.teacher.detail(Number(ID))}>
+        <Link href={routerConstant.admin.candidate.detail(Number(ID))}>
           <CustomButton text="Chi tiết" />
         </Link>
       </div>
