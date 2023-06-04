@@ -3,11 +3,12 @@ import DatePickerCommon from "@/components/common/DatePicker";
 import InputCommon from "@/components/common/InputCommon";
 import { Label } from "@/components/common/Label";
 import { UploadImage } from "@/components/common/UploadImage";
-import { PHONE } from "@/constant/constant";
+import { DATE_OF_BIRTH, PHONE } from "@/constant/constant";
 import { routerConstant } from "@/constant/routerConstant";
 import { useMutationUpdateUser, useQueryGetDetailUser, useQueryGetMe } from "@/pages/api/auth.api";
 import { FormUser, IRegister } from "@/type/common.type";
 import { UploadFile, UploadProps } from "antd";
+import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -23,7 +24,8 @@ const ProfileMeView = () => {
         control,
         handleSubmit,
         reset,
-        setValue
+        setValue,
+        setError
     } = useForm<IRegister>({
         mode: "onChange",
     });
@@ -32,6 +34,7 @@ const ProfileMeView = () => {
 
     useEffect(() => {
         reset(data)
+        setValue("date_of_birth", data?.date_of_birth?.split("T")[0])
         setValue("avatar", data?.avatar)
         if (data?.avatar) {
             setFileImage([
@@ -48,15 +51,21 @@ const ProfileMeView = () => {
     }, [data])
 
     const onSubmit = (value: any) => {
-        const { date_of_birth, ...rest } = value
-        if (!date_of_birth) return
-        let dateMonth = String(new Date(date_of_birth).getMonth())
-        if (dateMonth.length < 2) {
-            dateMonth = '0' + new Date(date_of_birth).getMonth()
+        const { password, date_of_birth, CreatedAt, DeletedAt, ID, UpdatedAt, role, email, ...rest } = value
+        if (!DATE_OF_BIRTH.test(date_of_birth)) {
+            setError('date_of_birth', {
+                type: 'custom',
+                message: 'Ngày sinh phải đúng định dạng YYYY-MM-DD',
+            });
+            return
         }
-        const date = `${new Date(date_of_birth).getFullYear() + '-' + dateMonth + '-' + new Date(date_of_birth).getDate()}`
-        const role = { role: 3 }
-        const newVal = Object.assign(role, rest, { date_of_birth: date })
+        let newVal;
+        if (!password) {
+            newVal = Object.assign(rest, { date_of_birth: date_of_birth })
+        }
+        else {
+            newVal = Object.assign(rest, { date_of_birth: date_of_birth } , {password: password})
+        }
 
         mutate(newVal, {
             onSuccess: () => {
@@ -111,7 +120,7 @@ const ProfileMeView = () => {
                         number={1}
                     />
                     <Label text="Ngày tháng năm sinh:" />
-                    <DatePickerCommon
+                    {/* <DatePickerCommon
                         name="date_of_birth"
                         control={control}
                         isRequired={true}
@@ -123,6 +132,19 @@ const ProfileMeView = () => {
                             },
                         }}
                         errors={errors}
+                    /> */}
+                    <InputCommon
+                        type='text'
+                        name='date_of_birth'
+                        control={control}
+                        errors={errors}
+                        isRequired={true}
+                        rules={{
+                            required: {
+                                value: true,
+                                message: "Đây là bắt buộc",
+                            },
+                        }}
                     />
                     <Label text="Số điện thoại:" />
                     <InputCommon

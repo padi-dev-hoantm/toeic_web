@@ -1,6 +1,7 @@
 import { DeleteParams, IExam, IExamInvite } from "@/type/common.type";
 import apiClient from "./apiClient";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useRef } from "react";
 
 const examApi = {
     createExam: (data: IExam) => apiClient.post("/api/exams/secured", data),
@@ -13,7 +14,8 @@ const examApi = {
     getExamsByTakers: (id: number) => apiClient.get(`/api/exams/takers/${id}`),
     deleteExam: (id: number) => apiClient.delete(`/api/exams/secured/${id}`),
     updateExam: (id: number, data: any) => apiClient.put(`/api/exams/secured/${id}`, data),
-    updateQuestion: (id: number, data: any) => apiClient.put(`/api/exams/secured/question/`, data),
+    updateQuestion: (id: number, data: any) => apiClient.put(`/api/exams/secured/question/${id}`, data),
+    getListTakersAdded: (id: number) => apiClient.get(`/api/exams/participants/${id}`),
 }
 
 export const useMutationCreateExam = () => {
@@ -22,15 +24,17 @@ export const useMutationCreateExam = () => {
     });
 }
 
-export const useMutationUpdateExam = (id: number) => {
+export const useMutationUpdateExam = () => {
     return useMutation(['update-exams'], (data: any) => {
-        return examApi.updateExam(id, data);
+        return examApi.updateExam(data.id, data);
     });
 }
 
-export const useMutationUpdateQuestion = (id: number) => {
+export const useMutationUpdateQuestion = () => {
+    const idRef = useRef<number>(null);
+
     return useMutation(['update-question'], (data: any) => {
-        return examApi.updateQuestion(id, data);
+        return examApi.updateQuestion(data.id, data);
     });
 }
 
@@ -103,3 +107,14 @@ export const useQuerygetDetailByOwner = (id: number) => {
             enabled: !!id
         })
 };
+
+export const useQueryGetListTakersAdded = (id: number) => {
+    return useQuery(['get-list-takers-added', id],
+        () => {
+            return examApi.getListTakersAdded(id)
+        },
+        {
+            enabled: !!id
+        })
+};
+

@@ -1,13 +1,12 @@
-import { useQueryGetDetailExam } from "@/pages/api/exams";
-import { HourglassOutlined } from "@ant-design/icons";
-import { Router, useRouter } from "next/router";
-import Countdown from 'react-countdown';
-import ReactAudioPlayer from 'react-audio-player';
-import { useForm } from "react-hook-form";
 import CustomButton from "@/components/common/Button";
-import { useEffect, useState } from "react";
-import { useMutationSubmitExam } from "@/pages/api/examSubmit";
 import { routerConstant } from "@/constant/routerConstant";
+import { useMutationSubmitExam } from "@/pages/api/examSubmit";
+import { useQueryGetDetailExam } from "@/pages/api/exams";
+import { ClockCircleOutlined, PlayCircleOutlined } from "@ant-design/icons";
+import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
+import Countdown from 'react-countdown';
+import { useForm } from "react-hook-form";
 
 const StudentExamView = () => {
     const {
@@ -15,7 +14,7 @@ const StudentExamView = () => {
         register,
     } = useForm();
     const router = useRouter()
-    const examId = 1
+    const examId = 7
     const { data, isFetchedAfterMount } = useQueryGetDetailExam(examId)
     const { mutate } = useMutationSubmitExam()
     const detailExam = data?.data
@@ -23,7 +22,13 @@ const StudentExamView = () => {
     const endDate = new Date(`${detailExam?.exam_end_time}`);
     const time = endDate.getTime() - startDate.getTime()
     const [tabSwitchCount, setTabSwitchCount] = useState(0)
+    const [audioStatus, changeAudioStatus] = useState(false);
 
+    const myRef = useRef();
+    const startAudio = () => {
+        myRef?.current?.play();
+        changeAudioStatus(true);
+    }
     useEffect(() => {
         const handleVisibilityChange = () => {
             if (document.visibilityState === 'visible') {
@@ -32,7 +37,10 @@ const StudentExamView = () => {
                 console.log('Tab is inactive');
             }
         };
-
+        if (typeof document !== "undefined") {
+            // Access the document object here
+            // Perform your logic that requires the document object
+        }
         document.addEventListener('visibilitychange', handleVisibilityChange);
 
         return () => {
@@ -61,15 +69,14 @@ const StudentExamView = () => {
         })
     };
 
-
     return <>
         {
             isFetchedAfterMount && (
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                     <div className="fixed right-0 bottom-0 text-2xl flex items-center bg-[#1890FF] text-white font-bold p-4 gap-2">
-                        <HourglassOutlined />
-                        <Countdown date={Date.now() + 20000000} />
+                        <ClockCircleOutlined rev={undefined} />
+                        <Countdown date={Date.now() + 7200000} />
                     </div>
                     <div className="mx-[50px] mt-[40px]">
 
@@ -77,16 +84,12 @@ const StudentExamView = () => {
                             <p className="text-[24px] font-bold">Bài thi: {detailExam?.exam_name}</p>
                             <p className="my-[20px]">Mô tả bài thi: {detailExam?.exam_description}</p>
                             <p>Bấm vào đây để nghe:</p>
-                            <div className="flex justify-center">
-                                {
-                                    !!detailExam?.listen_file &&
-                                    <ReactAudioPlayer
-                                        src={`${detailExam?.listen_file}`}
-                                        autoPlay={true}
-                                        controls={true}
-                                    />
-                                }
-                            </div>
+                            <button onClick={startAudio} type="button"><PlayCircleOutlined rev={undefined} /></button>
+
+                            <audio ref={myRef}>
+                                <source src={`${detailExam?.listen_file}`} type="audio/mpeg" />
+                                Your browser does not support the audio element.
+                            </audio>
                         </div>
                         <div className="box-shadow-item p-[30px]">
                             {detailExam?.exam_questions?.map((question: any, questionIndex: number) => {

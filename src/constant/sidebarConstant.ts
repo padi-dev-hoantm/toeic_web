@@ -48,13 +48,6 @@ export const sidebarItemTeacher = [
         router: routerConstant.teacher.index
     },
     {
-        id: 10,
-        name: 'Mời thi',
-        icon: UserOutlined,
-        currentMenu: 'student',
-        router: routerConstant.teacher.student.index
-    },
-    {
         id: 11,
         name: 'Đề thi',
         icon: BookOutlined,

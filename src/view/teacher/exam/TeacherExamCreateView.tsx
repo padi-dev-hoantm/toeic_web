@@ -11,10 +11,12 @@ import { ErrorMessage } from '@hookform/error-message';
 import { useRouter } from "next/router";
 import { routerConstant } from "@/constant/routerConstant";
 import dayjs from "dayjs";
+import { useQueryClient } from "@tanstack/react-query";
 
 const TeacherExamCreateView = () => {
   const { mutate } = useMutationCreateExam();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -24,7 +26,7 @@ const TeacherExamCreateView = () => {
     setValue,
     setError
   } = useForm();
-  const { fields, append, remove } = useFieldArray({
+  const { fields , append, remove } = useFieldArray({
     control,
     name: "exam_questions",
   });
@@ -74,7 +76,7 @@ const TeacherExamCreateView = () => {
       exam_description: value.exam_description,
       exam_start_time: value.exam_start_time,
       exam_end_time: value.exam_end_time,
-      listen_file: value.listen_file,
+      listen_file: "https://study4.com/media/tez_media1/sound/ets_toeic_2022_test_1_ets_2022_test01.mp3",
       exam_questions: rest,
     }
     console.log("dataSubmit", dataSubmit)
@@ -84,12 +86,14 @@ const TeacherExamCreateView = () => {
           alert("Có lỗi đang xảy ra, mời bạn kiểm tra lại");
         }
         else {
-          alert("Bạn đã tạo bài thi thành công");
-          router.push(routerConstant.admin.exam.index);
+          queryClient.refetchQueries(['get-list-exam']).then();
+          router.push(routerConstant.teacher.exam.index);
         }
       }
     });
   };
+  const data = Array.from({ length: 200 }, (_, index) => index + 1); // Tạo một mảng gồm 100 phần tử từ 1 đến 100
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="box-shadow-item p-[20px] mt-[20px]">
@@ -175,9 +179,9 @@ const TeacherExamCreateView = () => {
         </div> */}
       </div>
       <div>
-        {fields.map((item, index) => {
+        {data.map((_, index) => {
           return (
-            <div key={item.id}>
+            <div key={index}>
               <Qill index={index} register={register} control={control} />
               <CustomButtonDelete
                 text="Xóa câu hỏi"

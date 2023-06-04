@@ -29,7 +29,6 @@ const LoginView = () => {
         }
         else {
           addCookie(data.data);
-          alert("Bạn đã đăng nhập thành công");
           router.push(routerConstant.admin.dashboard);
         }
       },

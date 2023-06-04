@@ -33,7 +33,8 @@ export const routerConstant = {
     exam: {
       index: "/teacher/schedule-exam",
       detail: (exam_id: number) => `/teacher/schedule-exam/edit/${exam_id}`,
-      create: "/teacher/schedule-exam/create"
+      invite: (exam_id: number) => `/teacher/schedule-exam/edit/${exam_id}/invite`,
+      create: "/teacher/schedule-exam/create",
     },
     result: {
       index: "/teacher/result",

@@ -16,7 +16,7 @@ export const TeacherExamItem = ({
   exam_start_time,
 }: ISchedule) => {
   const [open, setOpen] = useState(false);
-  const {mutate: mutateDeleteUser} = useMutationDeleteExam()
+  const { mutate: mutateDeleteUser } = useMutationDeleteExam()
   const queryClient = useQueryClient();
 
   const showModal = () => {
@@ -50,6 +50,9 @@ export const TeacherExamItem = ({
       </div>
       <div className="flex gap-2">
         <CustomButtonDelete onClick={showModal} text="Xóa" />
+        <Link href={routerConstant.teacher.exam.invite(Number(id))}>
+          <CustomButton text="Mời thi" />
+        </Link>
         <Link href={routerConstant.teacher.exam.detail(Number(id))}>
           <CustomButton text="Chi tiết" />
         </Link>

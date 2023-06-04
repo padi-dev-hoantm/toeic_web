@@ -13,6 +13,7 @@ const Qill = ({ index, control, register }: any) => {
     control,
     name: `exam_questions.${index}.answers`,
   });
+  const data = Array.from({ length: 4 }, (_, index) => index + 1); // Tạo một mảng gồm 100 phần tử từ 1 đến 100
 
   const {
     formState: { errors },
@@ -30,35 +31,16 @@ const Qill = ({ index, control, register }: any) => {
         label="会場名"
         isRequired={true}
         placeholder="Autosize height based on content lines"
-        rules={{
-          required: {
-            value: true,
-            message: "Đây là bắt buộc",
-          },
-        }}
         errors={errors}
       />
       <Label text="Chọn phần" />
       <div className="flex gap-4">
-        <RadioCommon
-          name={`exam_questions.${index}.question_case`}
-          control={control}
-          label='リセールの可否'
-          type='text'
-          isRequired={true}
-          listOption={[
-            { value: 2, label: 'Phần nghe' },
-            { value: 1, label: 'Phần đọc' },
-          ]}
-          errors={errors}
-        />
-        {/* <label>
+        <label>
           <input
             type="radio"
             value={2}
             {...register(`exam_questions.${index}.question_case`)}
           />
-          {`exam_questions.${index}.question_case`}
           Phần nghe
         </label>
 
@@ -69,29 +51,17 @@ const Qill = ({ index, control, register }: any) => {
             {...register(`exam_questions.${index}.question_case`)}
           />
           Phần đọc
-        </label> */}
+        </label>
       </div>
       <Label text="Thêm đáp án" />
-      {fields1.map((item2, index2) => {
+      {data.map((_, index2) => {
         return (
           <div
-            key={item2.id}
+            key={index2}
             className="flex gap-[10px] mb-[20px] ml-[10px] h-[30px]"
           >
             <div className="flex gap-3">
-              <RadioCommon
-                name={`exam_questions.${index}.answers.${index2}.is_correct`}
-                control={control}
-                label='リセールの可否'
-                type='text'
-                isRequired={true}
-                listOption={[
-                  { value: 1, label: 'Đúng' },
-                  { value: 0, label: 'Sai' },
-                ]}
-                errors={errors}
-              />
-              {/* <label>
+              <label>
                 <input
                   type="radio"
                   value={1}
@@ -107,7 +77,7 @@ const Qill = ({ index, control, register }: any) => {
                   {...register(`exam_questions.${index}.answers.${index2}.is_correct`)}
                 />
                 Sai
-              </label> */}
+              </label>
             </div>
             <div>
               <input
