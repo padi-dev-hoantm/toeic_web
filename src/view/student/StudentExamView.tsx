@@ -14,8 +14,8 @@ const StudentExamView = () => {
         register,
     } = useForm();
     const router = useRouter()
-    const examId = 7
-    const { data, isFetchedAfterMount } = useQueryGetDetailExam(examId)
+    const examId = router?.query.exam_id
+    const { data, isFetchedAfterMount } = useQueryGetDetailExam(Number(examId))
     const { mutate } = useMutationSubmitExam()
     const detailExam = data?.data
     const startDate = new Date();

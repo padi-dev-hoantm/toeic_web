@@ -3,7 +3,6 @@ import { useQueryGetExamSubmit } from "@/pages/api/examSubmit";
 
 const StudentResultExamView = () => {
     const { data, isFetchedAfterMount } = useQueryGetExamSubmit()
-    console.log(123, data)
     const detailExam = data?.data[0]
 
     return <div>

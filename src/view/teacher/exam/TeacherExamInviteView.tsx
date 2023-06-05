@@ -2,7 +2,7 @@ import CustomButton from "@/components/common/Button";
 import SelectInputCommon from "@/components/common/SelectInputCommon";
 import { routerConstant } from "@/constant/routerConstant";
 import { useQueryGetListStudent } from "@/pages/api/auth.api";
-import { useMutationAddTakersToExam, useMutationDeleteUserFromExam, useQueryGetListExam, useQueryGetListTakersAdded } from "@/pages/api/exams";
+import { useMutationAddTakersToExam, useMutationDeleteUserFromExam, useMutationInviteExam, useQueryGetListExam, useQueryGetListTakersAdded } from "@/pages/api/exams";
 import { useQueryClient } from "@tanstack/react-query";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
@@ -11,6 +11,8 @@ import { useForm } from "react-hook-form";
 
 const TeacherExamInviteView = () => {
     const [open, setOpen] = useState(false);
+    const [show, setShow] = useState(false);
+
     const selectedTakerIdRef = useRef<number>(null);
 
     const router = useRouter()
@@ -19,6 +21,8 @@ const TeacherExamInviteView = () => {
     const { data: dataListTakers, refetch } = useQueryGetListTakersAdded(Number(examId))
     const { mutate: mutateInvite } = useMutationAddTakersToExam()
     const { mutate: mutateDeleteUserInExam } = useMutationDeleteUserFromExam()
+    const { mutate: mutateInviteExam } = useMutationInviteExam(Number(examId))
+
     const queryClient = useQueryClient();
 
     const listTakers = dataListTakers?.data
@@ -78,30 +82,56 @@ const TeacherExamInviteView = () => {
         })
     }
 
+    const openModal = () => {
+        setShow(true);
+    };
+
+    const handleClosed = () => {
+        setShow(false);
+    };
+
+    const handleInvite = () => {
+        mutateInviteExam()
+        handleClosed()
+    }
+
     return (
         <div className="mt-[20px]">
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <h1 className=" text-2xl font-bold text-[#4F4F4F] py-[20px]">Mời thí sinh làm bài thi</h1>
+            <div className="flex items-center justify-between">
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <h1 className=" text-2xl font-bold text-[#4F4F4F] py-[20px]">Mời thí sinh làm bài thi</h1>
 
-                <SelectInputCommon
-                    control={control}
-                    name='user_ids'
-                    isRequired={true}
-                    rules={{
-                        required: {
-                            value: true,
-                            message: 'Đây là bắt buộc',
-                        },
-                    }}
-                    mode='multiple'
-                    options={selectCandidate}
-                    optionFilterProp='label'
-                    errors={errors}
-                />
-                <div className="mt-[20px]">
-                    <CustomButton text="Mời thi" type="submit" />
+                    <SelectInputCommon
+                        control={control}
+                        name='user_ids'
+                        isRequired={true}
+                        rules={{
+                            required: {
+                                value: true,
+                                message: 'Đây là bắt buộc',
+                            },
+                        }}
+                        mode='multiple'
+                        options={selectCandidate}
+                        optionFilterProp='label'
+                        errors={errors}
+                    />
+                    <div className="mt-[20px]">
+                        <CustomButton text="Chọn" type="submit" />
+                    </div>
+
+                </form>
+                <Modal
+                    title="Sau khi mời thi bạn sẽ không được xóa thí sinh nữa, bạn có chắc chắn muốn mời thi bây giờ không?"
+                    open={show}
+                    onOk={() => handleInvite()}
+                    onCancel={handleClosed}
+                >
+                </Modal>
+                <div className="mt-[20px]" onClick={() => openModal()}>
+                    <CustomButton text="Mời thi" />
                 </div>
-            </form>
+            </div>
             <h1 className=" text-2xl font-bold mt-5 text-[#4F4F4F]">
                 Danh sách thí sinh đã được mời
             </h1>

@@ -32,9 +32,6 @@ const LoginView = () => {
           router.push(routerConstant.admin.dashboard);
         }
       },
-      onError: () => {
-        alert("Email chưa chính xác");
-      },
     });
   };
   return (

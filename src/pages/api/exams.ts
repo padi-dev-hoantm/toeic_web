@@ -1,7 +1,8 @@
 import { DeleteParams, IExam, IExamInvite } from "@/type/common.type";
 import apiClient from "./apiClient";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useRef } from "react";
+import { useRouter } from "next/router";
+import { routerConstant } from "@/constant/routerConstant";
 
 const examApi = {
     createExam: (data: IExam) => apiClient.post("/api/exams/secured", data),
@@ -16,6 +17,7 @@ const examApi = {
     updateExam: (id: number, data: any) => apiClient.put(`/api/exams/secured/${id}`, data),
     updateQuestion: (id: number, data: any) => apiClient.put(`/api/exams/secured/question/${id}`, data),
     getListTakersAdded: (id: number) => apiClient.get(`/api/exams/participants/${id}`),
+    inviteExam: (id: number) => apiClient.post(`/api/exams/invite/${id}`),
 }
 
 export const useMutationCreateExam = () => {
@@ -31,8 +33,6 @@ export const useMutationUpdateExam = () => {
 }
 
 export const useMutationUpdateQuestion = () => {
-    const idRef = useRef<number>(null);
-
     return useMutation(['update-question'], (data: any) => {
         return examApi.updateQuestion(data.id, data);
     });
@@ -60,11 +60,17 @@ export const useQueryGetListExamByCreator = (id: number) => {
 }
 
 export const useQueryGetDetailExam = (id: number) => {
+    const router = useRouter()
     return useQuery(['get-detail-exam', id],
         () => {
             return examApi.getDetailExam(id)
         },
         {
+            onSuccess: (response) => {
+                if(!response.data){
+                    router.push(routerConstant.student.exam.error)
+                }
+            },
             enabled: !!id
         })
 }
@@ -117,4 +123,11 @@ export const useQueryGetListTakersAdded = (id: number) => {
             enabled: !!id
         })
 };
+
+export const useMutationInviteExam = (id: number) => {
+    return useMutation(['invite-exam'], () => {
+        return examApi.inviteExam(id);
+    });
+}
+
 
