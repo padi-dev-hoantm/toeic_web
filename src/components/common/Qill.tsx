@@ -13,7 +13,7 @@ const Qill = ({ index, control, register }: any) => {
     control,
     name: `exam_questions.${index}.answers`,
   });
-  const data = Array.from({ length: 4 }, (_, index) => index + 1); // Tạo một mảng gồm 100 phần tử từ 1 đến 100
+  const data = Array.from({ length: 4 }, (_, index) => index + 1);
 
   const {
     formState: { errors },
@@ -88,23 +88,23 @@ const Qill = ({ index, control, register }: any) => {
                 )}
               />
             </div>
-            <button
+            {/* <button
               onClick={() => remove1(index)}
               className="bg-[red] text-white px-[10px]"
             >
               Xóa
-            </button>
+            </button> */}
           </div>
         );
       })}
       <section className="mt-[20px] mb-[20px]">
-        <CustomButton
+        {/* <CustomButton
           text="Thêm câu trả lời"
           type="button"
           onClick={() => {
             append1({});
           }}
-        />
+        /> */}
       </section>
     </div>
   );

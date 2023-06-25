@@ -1,13 +1,12 @@
 import LayoutDocument from "@/components/layouts/LayoutDocument";
-import LoginView from "@/view/LoginView";
-import React from "react";
+import AdminLoginView from "@/view/AdminLoginView";
 
-const Login = () => {
+const AdminLogin = () => {
   return (
     <LayoutDocument title="Login">
-      <LoginView />
+      <AdminLoginView />
     </LayoutDocument>
   );
 };
 
-export default Login;
+export default AdminLogin;

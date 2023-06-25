@@ -1,7 +1,7 @@
+import { Box, Grid } from "@mui/material";
 import { NextPage } from "next";
 import Head from "next/head";
-import React, { ReactNode } from "react";
-import Footer from "../common/Footer";
+import { ReactNode } from "react";
 import Header from "../common/Header";
 import SidebarTeacher from "../teacher/SidebarTeacher";
 
@@ -9,6 +9,7 @@ type Props = {
   children: ReactNode;
   title: string;
 };
+
 const LayoutTeacher: NextPage<Props> = ({ children, title }) => {
   return (
     <>
@@ -17,11 +18,16 @@ const LayoutTeacher: NextPage<Props> = ({ children, title }) => {
       </Head>
       <div>
         <Header />
-        <div className="flex w-full min-h-screen bg-[#FFFFFF] gap-[20px] flex-wrap">
-          <SidebarTeacher />
-          {children}
-        </div>
-        <Footer />
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container className="flex gap-[40px]">
+            <Grid item xs={2} className="shadow-sidebar">
+              <SidebarTeacher />
+            </Grid>
+            <Grid item xs={9}>
+              {children}
+            </Grid>
+          </Grid>
+        </Box>
       </div>
     </>
   );

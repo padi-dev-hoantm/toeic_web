@@ -1,6 +1,7 @@
 export const routerConstant = {
   me: "/me",
   admin: {
+    login:  "/admin/login",
     index: "/admin",
     dashboard: "/admin/dashboard",
     teacher: {
@@ -24,23 +25,20 @@ export const routerConstant = {
     }
   },
   teacher: {
-    index: "/teacher",
-    dashboard: "/admin/dashboard",
-    student: {
-      index: "/teacher/student",
-      invite: "/teacher/student/invite",
-    },
+    login:  "/teacher/login",
+    profile: "/teacher/profile",
     exam: {
       index: "/teacher/schedule-exam",
       detail: (exam_id: number) => `/teacher/schedule-exam/edit/${exam_id}`,
       invite: (exam_id: number) => `/teacher/schedule-exam/edit/${exam_id}/invite`,
+      result: (exam_id: number) => `/teacher/schedule-exam/edit/${exam_id}/result`,
       create: "/teacher/schedule-exam/create",
     },
-    result: {
-      index: "/teacher/result",
-    }
   },
   student: {
+    login:  "/student/login",
+    result:  "/student/result",
+    profile: "/student/profile",
     exam: {
       index: "/student/exam",
       result: "/student/exam/result",

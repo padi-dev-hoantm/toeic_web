@@ -45,7 +45,7 @@ export default function ChatBox() {
   }
 
   return (
-    <div className='w-[500px] h-[500px]'>
+    <div className="chat-box" >
       <div className='flex flex-col items-center justify-center text-center'>
         <div className='my-12'>
           <p className='mb-6 font-bold'>Nhập câu hỏi vào đây:</p>
@@ -62,7 +62,7 @@ export default function ChatBox() {
             className='font-bold flex gap-[10px] items-center '
             onClick={handleRefresh}
           >
-            <RedoOutlined />
+            <RedoOutlined rev={undefined} />
             Bắt đầu cuộc trò chuyện mới
           </button>
         </div>

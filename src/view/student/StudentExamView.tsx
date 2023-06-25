@@ -1,4 +1,5 @@
 import CustomButton from "@/components/common/Button";
+import { Label } from "@/components/common/Label";
 import { routerConstant } from "@/constant/routerConstant";
 import { useMutationSubmitExam } from "@/pages/api/examSubmit";
 import { useQueryGetDetailExam } from "@/pages/api/exams";
@@ -56,7 +57,7 @@ const StudentExamView = () => {
         }));
 
         const dataSubmit = {
-            exam_id: examId,
+            exam_id: Number(examId),
             tab_switch_count: tabSwitchCount,
             submission_results: submissionResults
         }
@@ -92,6 +93,9 @@ const StudentExamView = () => {
                             </audio>
                         </div>
                         <div className="box-shadow-item p-[30px]">
+                            <div className="text-center">
+                                <Label text="Phần nghe" />
+                            </div>
                             {detailExam?.exam_questions?.map((question: any, questionIndex: number) => {
                                 const questionText = question?.question_text;
 

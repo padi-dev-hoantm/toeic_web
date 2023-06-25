@@ -43,5 +43,16 @@
 }
 .ant-btn-primary{
     background-color: #1677ff;
-
+}
+.chat-box{
+    float: right;
+    width: 500px;
+    height: 500px;
+    overflow: auto;
+    border-radius: 5px;
+    border: 2px solid #f4f4f6;
+    POSITION: FIXED;
+    BACKGROUND: #f4f4f6;
+    RIGHT: 0;
+    BOTTOM: 0;
 }

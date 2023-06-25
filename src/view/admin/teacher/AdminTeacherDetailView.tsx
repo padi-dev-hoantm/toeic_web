@@ -1,12 +1,11 @@
 import CustomButton from "@/components/common/Button";
-import DatePickerCommon from "@/components/common/DatePicker";
 import InputCommon from "@/components/common/InputCommon";
 import { Label } from "@/components/common/Label";
 import { UploadImage } from "@/components/common/UploadImage";
-import { PHONE } from "@/constant/constant";
+import { DATE_OF_BIRTH, PHONE } from "@/constant/constant";
 import { routerConstant } from "@/constant/routerConstant";
 import { useMutationUpdateUser, useQueryGetDetailUser } from "@/pages/api/auth.api";
-import { FormUser, IRegister } from "@/type/common.type";
+import { FormUser } from "@/type/common.type";
 import { UploadFile, UploadProps } from "antd";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -21,6 +20,7 @@ const AdminTeacherDetailView = () => {
     control,
     setValue,
     handleSubmit,
+    setError
   } = useForm<FormUser>({
     mode: "onChange",
   });
@@ -55,9 +55,14 @@ const AdminTeacherDetailView = () => {
 
   const onSubmit: SubmitHandler<FormUser> = (value) => {
     const { date_of_birth, ...rest } = value
-    if (!date_of_birth) return
-    const date = `${new Date(date_of_birth).getFullYear() + '-' + new Date(date_of_birth).getMonth() + '-' + new Date(date_of_birth).getDate()}`
-    const newVal = Object.assign( rest, { date_of_birth: date })
+    if (date_of_birth && !DATE_OF_BIRTH.test(date_of_birth)) {
+      setError('date_of_birth', {
+        type: 'custom',
+        message: 'Ngày sinh phải đúng định dạng YYYY-MM-DD',
+      });
+      return
+    }
+    const newVal = Object.assign(rest, { date_of_birth: date_of_birth })
     mutate(newVal, {
       onSuccess: () => {
         router.push(routerConstant.admin.teacher.index)
@@ -108,18 +113,18 @@ const AdminTeacherDetailView = () => {
             number={1}
           />
           <Label text="Ngày tháng năm sinh:" />
-          <DatePickerCommon
-            name="date_of_birth"
+          <InputCommon
+            type='text'
+            name='date_of_birth'
             control={control}
+            errors={errors}
             isRequired={true}
-            showTime={false}
             rules={{
               required: {
                 value: true,
                 message: "Đây là bắt buộc",
               },
             }}
-            errors={errors}
           />
           <Label text="Số điện thoại:" />
           <InputCommon
@@ -146,16 +151,16 @@ const AdminTeacherDetailView = () => {
             control={control}
             errors={errors}
             isRequired={true}
-            // rules={{
-            //   required: {
-            //     value: true,
-            //     message: "Đây là bắt buộc",
-            //   },
-            //   minLength: {
-            //     value: 6,
-            //     message: "Mật khẩu phải lớn hơn 6 kí tự",
-            //   },
-            // }}
+          // rules={{
+          //   required: {
+          //     value: true,
+          //     message: "Đây là bắt buộc",
+          //   },
+          //   minLength: {
+          //     value: 6,
+          //     message: "Mật khẩu phải lớn hơn 6 kí tự",
+          //   },
+          // }}
           />
           <Label text="Địa chỉ" />
           <InputCommon

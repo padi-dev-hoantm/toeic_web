@@ -45,7 +45,7 @@ export const useQueryGetListExam = () => {
         () => {
             return examApi.listExam();
         },
-        { cacheTime: Infinity, staleTime: Infinity },
+       // { cacheTime: Infinity, staleTime: Infinity },
     );
 }
 
@@ -67,8 +67,8 @@ export const useQueryGetDetailExam = (id: number) => {
         },
         {
             onSuccess: (response) => {
-                if(!response.data){
-                    router.push(routerConstant.student.exam.error)
+                if (!response.data) {
+                    alert('Bài thi không tồn tại, xin vui lòng liên hệ với giảng viên ')
                 }
             },
             enabled: !!id

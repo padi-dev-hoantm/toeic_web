@@ -1,6 +1,7 @@
 import CustomButton from "@/components/common/Button";
+import { ID_PERSON } from "@/constant/constant";
 import { routerConstant } from "@/constant/routerConstant";
-import { sidebarItemAdmin } from "@/constant/sidebarConstant";
+import { sidebarItemStudent } from "@/constant/sidebarConstant";
 import { useQueryGetMe } from "@/pages/api/auth.api";
 import { useCurrentMenuItemState } from "@/recoil/side-bar.recoil";
 import { addCookie } from "@/untils/addCookies";
@@ -12,7 +13,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 
-const SidebarAdmin = () => {
+const SidebarStudent = () => {
   const router = useRouter()
   const [open, setOpen] = useState(false);
   const currentMenuItem = useCurrentMenuItemState();
@@ -21,13 +22,8 @@ const SidebarAdmin = () => {
   const { data: dataMe, isFetchedAfterMount } = useQueryGetMe();
   const data = dataMe?.data;
   addCookie(data)
-  // useEffect(()=> {
-  //   const role = data?.role
-  //   if(role !== 1){
-  //     router.push(routerConstant.home)
-  //     alert("Bạn không có quyền truy cập!")
-  //   }
-  // }, [data])
+  const role = cookies.get(ID_PERSON)
+  
 
   const showModal = () => {
     setOpen(true);
@@ -43,6 +39,7 @@ const SidebarAdmin = () => {
   const handleCancel = () => {
     setOpen(false);
   };
+  console.log(role)
   return <>
     {
       isFetchedAfterMount && (
@@ -55,7 +52,7 @@ const SidebarAdmin = () => {
           </div>
           <div className="flex flex-col">
             {
-              sidebarItemAdmin.map((item) => (
+              sidebarItemStudent.map((item) => (
                 <Link
                   className={`p-2 my-2 ${currentMenuItem === item.currentMenu
                     ? "side-active"
@@ -89,4 +86,4 @@ const SidebarAdmin = () => {
     ;
 };
 
-export default SidebarAdmin;
+export default SidebarStudent;

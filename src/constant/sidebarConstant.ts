@@ -30,36 +30,44 @@ export const sidebarItemAdmin = [
         currentMenu: 'exam',
         router: routerConstant.admin.exam.index
     },
-    {
-        id: 5,
-        name: 'Đăng xuất',
-        icon: LogoutOutlined,
-        currentMenu: 'Logout',
-        router: routerConstant.login,
-    }
+
 ]
 
 export const sidebarItemTeacher = [
     {
-        id: 9,
-        name: 'Thống kê',
-        icon: FileExcelOutlined,
-        currentMenu: 'teacherDashboard',
-        router: routerConstant.teacher.index
+        id: 11,
+        name: 'Cập nhật thông tin',
+        icon: UserOutlined,
+        currentMenu: 'profile-teacher',
+        router: routerConstant.teacher.profile
+
     },
     {
-        id: 11,
+        id: 12,
         name: 'Đề thi',
         icon: BookOutlined,
         currentMenu: 'exam-teacher',
         router: routerConstant.teacher.exam.index
 
     },
+
+]
+
+export const sidebarItemStudent = [
     {
-        id: 12,
-        name: 'Đăng xuất',
-        icon: LogoutOutlined,
-        currentMenu: 'Logout',
-        router: routerConstant.login,
-    }
+        id: 13,
+        name: 'Cập nhật thông tin',
+        icon: UserOutlined,
+        currentMenu: 'profile-student',
+        router: routerConstant.student.profile
+
+    },
+    {
+        id: 14,
+        name: 'Điểm thi',
+        icon: BookOutlined,
+        currentMenu: 'result-student',
+        router: routerConstant.student.result
+    },
+
 ]

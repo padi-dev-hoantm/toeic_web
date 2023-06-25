@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { routerConstant } from "@/constant/routerConstant";
 import dayjs from "dayjs";
 import { useQueryClient } from "@tanstack/react-query";
+import ChatBox from "@/pages/chatbox";
 
 const TeacherExamCreateView = () => {
   const { mutate } = useMutationCreateExam();
@@ -26,7 +27,7 @@ const TeacherExamCreateView = () => {
     setValue,
     setError
   } = useForm();
-  const { fields , append, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "exam_questions",
   });
@@ -76,7 +77,7 @@ const TeacherExamCreateView = () => {
       exam_description: value.exam_description,
       exam_start_time: value.exam_start_time,
       exam_end_time: value.exam_end_time,
-      listen_file: "https://study4.com/media/tez_media1/sound/ets_toeic_2022_test_1_ets_2022_test01.mp3",
+      listen_file:value.listen_file,
       exam_questions: rest,
     }
     console.log("dataSubmit", dataSubmit)
@@ -92,57 +93,59 @@ const TeacherExamCreateView = () => {
       }
     });
   };
-  const data = Array.from({ length: 200 }, (_, index) => index + 1); // Tạo một mảng gồm 100 phần tử từ 1 đến 100
+  // const data = Array.from({ length: 200 }, (_, index) => index + 1); 
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="box-shadow-item p-[20px] mt-[20px]">
-        <Label text="Nhập tên bài thi:" />
-        <TextAreaCommon
-          name="exam_name"
-          control={control}
-          rows={2}
-          isRequired={true}
-          rules={{
-            required: {
-              value: true,
-              message: "Đây là bắt buộc",
-            },
-          }}
-          showCount={true}
-          maxLength={800}
-          errors={errors}
-        />
-        <Label text="Nhập mô tả bài thi:" />
-        <TextAreaCommon
-          name="exam_description"
-          control={control}
-          rows={2}
-          isRequired={true}
-          rules={{
-            required: {
-              value: true,
-              message: "Đây là bắt buộc",
-            },
-          }}
-          showCount={true}
-          maxLength={800}
-          errors={errors}
-        />
-        <Label text="Thời gian bắt đầu bài thi:" />
-        <DatePickerCommon
-          name="exam_start_time"
-          control={control}
-          isRequired={true}
-          rules={{
-            required: {
-              value: true,
-              message: "Đây là bắt buộc",
-            },
-          }}
-          errors={errors}
-        />
-        {/* <Label text="Thời gian kết thúc bài thi:" />
+    <div>
+      <ChatBox />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="box-shadow-item p-[20px] mt-[20px]">
+          <Label text="Nhập tên bài thi:" />
+          <TextAreaCommon
+            name="exam_name"
+            control={control}
+            rows={2}
+            isRequired={true}
+            rules={{
+              required: {
+                value: true,
+                message: "Đây là bắt buộc",
+              },
+            }}
+            showCount={true}
+            maxLength={800}
+            errors={errors}
+          />
+          <Label text="Nhập mô tả bài thi:" />
+          <TextAreaCommon
+            name="exam_description"
+            control={control}
+            rows={2}
+            isRequired={true}
+            rules={{
+              required: {
+                value: true,
+                message: "Đây là bắt buộc",
+              },
+            }}
+            showCount={true}
+            maxLength={800}
+            errors={errors}
+          />
+          <Label text="Thời gian bắt đầu bài thi:" />
+          <DatePickerCommon
+            name="exam_start_time"
+            control={control}
+            isRequired={true}
+            rules={{
+              required: {
+                value: true,
+                message: "Đây là bắt buộc",
+              },
+            }}
+            errors={errors}
+          />
+          {/* <Label text="Thời gian kết thúc bài thi:" />
         <DatePickerCommon
           name="exam_end_time"
           control={control}
@@ -155,7 +158,7 @@ const TeacherExamCreateView = () => {
           }}
           errors={errors}
         /> */}
-        {/* <div className="flex flex-col">
+          {/* <div className="flex flex-col">
           <Label text="Nhập file nghe:" />
           <Controller
             name={`listen_file`}
@@ -177,34 +180,35 @@ const TeacherExamCreateView = () => {
             render={({ message }) => <span className='text-xs text-red-400 mt-1'>{message}</span>}
           />
         </div> */}
-      </div>
-      <div>
-        {data.map((_, index) => {
-          return (
-            <div key={index}>
-              <Qill index={index} register={register} control={control} />
-              <CustomButtonDelete
-                text="Xóa câu hỏi"
-                type="button"
-                onClick={() => remove(index)}
-              />
-            </div>
-          );
-        })}
-      </div>
-      <section className="mt-[20px]">
-        <CustomButton
-          text="Thêm câu hỏi mới"
-          type="button"
-          onClick={() => {
-            append({});
-          }}
-        />
-      </section>
-      <section className="mt-[20px]">
-        <CustomButton type="submit" text="Tạo mới bài thi" />
-      </section>
-    </form>
+        </div>
+        <div>
+          {fields.map((item, index) => {
+            return (
+              <div key={item.id}>
+                <Qill index={index} register={register} control={control} />
+                <CustomButtonDelete
+                  text="Xóa câu hỏi"
+                  type="button"
+                  onClick={() => remove(index)}
+                />
+              </div>
+            );
+          })}
+        </div>
+        <section className="mt-[20px]">
+          <CustomButton
+            text="Thêm câu hỏi mới"
+            type="button"
+            onClick={() => {
+              append({});
+            }}
+          />
+        </section>
+        <section className="mt-[20px]">
+          <CustomButton type="submit" text="Tạo mới bài thi" />
+        </section>
+      </form>
+    </div>
   );
 };
 

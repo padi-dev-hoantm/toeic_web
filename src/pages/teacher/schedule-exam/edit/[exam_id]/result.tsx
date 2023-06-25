@@ -1,10 +1,10 @@
 import LayoutTeacher from "@/components/layouts/LayoutTeacher";
 import { currentMenuItemState } from "@/recoil/side-bar.recoil";
-import TeacherExamInviteView from "@/view/teacher/exam/TeacherExamInviteView";
+import TeacherScheduleExamResultView from "@/view/teacher/exam/TeacherScheduleExamResultView";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 
-const TeacherScheduleExamInvite = () => {
+const TeacherScheduleExamResult = () => {
 
     const setCurrentMenuItem = useSetRecoilState(currentMenuItemState);
     useEffect(() => {
@@ -13,9 +13,9 @@ const TeacherScheduleExamInvite = () => {
 
     return (
         <LayoutTeacher title="Teacher">
-            <TeacherExamInviteView />
+            <TeacherScheduleExamResultView />
         </LayoutTeacher>
     );
 };
 
-export default TeacherScheduleExamInvite;
+export default TeacherScheduleExamResult;

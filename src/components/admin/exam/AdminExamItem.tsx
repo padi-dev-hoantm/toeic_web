@@ -50,7 +50,7 @@ export const AdminExamItem = ({
       </div>
       <div className="flex gap-2">
         <CustomButtonDelete onClick={showModal} text="Xóa" />
-        <Link href={routerConstant.admin.candidate.detail(Number(id))}>
+        <Link href={routerConstant.admin.exam.detail(Number(id))}>
           <CustomButton text="Chi tiết" />
         </Link>
       </div>

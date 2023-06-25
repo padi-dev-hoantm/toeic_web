@@ -54,6 +54,7 @@ const AdminCandidateView = () => {
             ID={candidate.ID}
             name={candidate.name}
             email={candidate.email}
+            code={candidate.code}
           />
         </div>
       ))}

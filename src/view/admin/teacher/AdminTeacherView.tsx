@@ -57,6 +57,7 @@ const AdminTeacherView = () => {
             ID={teacher.ID}
             name={teacher.name}
             email={teacher.email}
+            code={teacher.code}
           />
         </div>
       ))}

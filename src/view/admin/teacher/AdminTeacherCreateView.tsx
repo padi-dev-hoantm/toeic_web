@@ -3,7 +3,7 @@ import DatePickerCommon from "@/components/common/DatePicker";
 import InputCommon from "@/components/common/InputCommon";
 import { Label } from "@/components/common/Label";
 import { UploadImage } from "@/components/common/UploadImage";
-import { PHONE, REGEX_EMAIL } from "@/constant/constant";
+import { DATE_OF_BIRTH, PHONE, REGEX_EMAIL } from "@/constant/constant";
 import { routerConstant } from "@/constant/routerConstant";
 import { useMutationRegister } from "@/pages/api/auth.api";
 import { IRegister } from "@/type/common.type";
@@ -14,13 +14,20 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 const AdminTeacherCreateView = () => {
   const router = useRouter();
-  const [fileImage, setFileImage] = useState<UploadFile[]>([]);
-
+  const [fileImage, setFileImage] = useState<UploadFile[]>([
+    {
+      uid: '1',
+      name: '',
+      status: 'done',
+      url:'https://kita.s3.ap-southeast-1.amazonaws.com/media%2F2023-05-28T12%3A49%3A17Z-128c787c8300765e2f11.jpg',
+    },
+  ]);
   const {
     formState: { errors },
     control,
     setValue,
     handleSubmit,
+    setError
   } = useForm<IRegister>({
     mode: "onChange",
   });
@@ -34,11 +41,15 @@ const AdminTeacherCreateView = () => {
 
   const onSubmit: SubmitHandler<IRegister> = (value) => {
     const { date_of_birth, ...rest } = value
-    if (!date_of_birth) return
-    const date = `${new Date(date_of_birth).getFullYear() + '-' + new Date(date_of_birth).getMonth() + '-' + new Date(date_of_birth).getDate()}`
-    console.log(111, date)
+    if (date_of_birth && !DATE_OF_BIRTH.test(date_of_birth)) {
+      setError('date_of_birth', {
+        type: 'custom',
+        message: 'Ngày sinh phải đúng định dạng YYYY-MM-DD',
+      });
+      return
+    }
     const role = { role: 3 }
-    const newVal = Object.assign(role, rest, { date_of_birth: date })
+    const newVal = Object.assign(role, rest, { date_of_birth: date_of_birth }, {avatar : 'https://kita.s3.ap-southeast-1.amazonaws.com/media%2F2023-05-28T12%3A49%3A17Z-128c787c8300765e2f11.jpg'})
     mutate(newVal, {
       onSuccess: () => {
         router.push(routerConstant.admin.teacher.index)
@@ -107,18 +118,18 @@ const AdminTeacherCreateView = () => {
             number={1}
           />
           <Label text="Ngày tháng năm sinh:" />
-          <DatePickerCommon
-            name="date_of_birth"
+          <InputCommon
+            type='text'
+            name='date_of_birth'
             control={control}
+            errors={errors}
             isRequired={true}
-            showTime={false}
             rules={{
               required: {
                 value: true,
                 message: "Đây là bắt buộc",
               },
             }}
-            errors={errors}
           />
           <Label text="Số điện thoại:" />
           <InputCommon

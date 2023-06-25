@@ -88,3 +88,7 @@ export interface DeleteParams{
   user_id: number;
 }
 
+export interface FilterScoreParams{
+  score: number;
+}
+

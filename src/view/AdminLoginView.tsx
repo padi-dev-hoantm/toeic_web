@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Image from "next/image";
 
-const LoginView = () => {
+const AdminLoginView = () => {
   const router = useRouter();
   const { mutate: mutateLogin } = useMutationLogin();
   const {
@@ -48,7 +48,7 @@ const LoginView = () => {
         </div>
         <div className="w-[500px] box-shadow-item ">
           <form onSubmit={handleSubmit(handleLogin)} className="bg-[#fff] p-[50px]">
-            <h1 className="text-center text-2xl font-bold text-[#4F4F4F]">HỆ THỐNG THI TOEIC CỦA UTC</h1>
+            <h1 className="text-center text-2xl font-bold text-[#4F4F4F]">Admin đăng nhập</h1>
             <Label text="Email:" />
             <InputCommon
               type="text"
@@ -94,4 +94,4 @@ const LoginView = () => {
   );
 };
 
-export default LoginView;
+export default AdminLoginView;

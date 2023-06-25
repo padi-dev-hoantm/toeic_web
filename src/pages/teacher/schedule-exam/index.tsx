@@ -1,4 +1,4 @@
-import LayoutAdmin from "@/components/layouts/LayoutAdmin";
+import LayoutTeacher from "@/components/layouts/LayoutTeacher";
 import { currentMenuItemState } from "@/recoil/side-bar.recoil";
 import TeacherExamView from "@/view/teacher/exam/TeacherExamView";
 import { useEffect } from "react";
@@ -11,9 +11,9 @@ const TeacherScheduleExam = () => {
   }, []);
 
   return (
-    <LayoutAdmin title="Schedule exam">
+    <LayoutTeacher title="Teacher">
       <TeacherExamView />
-    </LayoutAdmin>
+    </LayoutTeacher>
   );
 };
 

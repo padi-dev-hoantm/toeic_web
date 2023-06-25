@@ -9,9 +9,9 @@ import CustomButtonDelete from "@/components/common/ButtonDelete";
 import { useMutationDeleteUser } from "@/pages/api/auth.api";
 import { useQueryClient } from "@tanstack/react-query";
 
-export const AdminTeacherItem = ({ ID, name, email, avatar }: IRegister) => {
+export const AdminTeacherItem = ({ ID, name, email, avatar, code }: IRegister) => {
   const [open, setOpen] = useState(false);
-  const {mutate: mutateDeleteUser} = useMutationDeleteUser()
+  const { mutate: mutateDeleteUser } = useMutationDeleteUser()
   const queryClient = useQueryClient();
 
   const showModal = () => {
@@ -41,17 +41,21 @@ export const AdminTeacherItem = ({ ID, name, email, avatar }: IRegister) => {
       >
       </Modal>
       <div className="flex items-center">
-        <Image
-          src={avatar ?? "/img/home-img.png"}
-          width={100}
-          height={100}
-          className="rounded-full h-[100px]"
-          alt=""
-          objectFit="contain"
-        />
+        {
+          avatar !== undefined && <Image
+            src={avatar ? avatar : "/img/home-img.png"}
+            width={100}
+            height={100}
+            className="rounded-full h-[100px]"
+            alt=""
+            objectFit="contain"
+          />
+        }
+
         <p className="flex flex-col pl-2.5 ">
           <span className="flex gap-2"><span>Giảng viên: </span>{name}</span>
           <span className="flex gap-2"><span>Email: </span>{email}</span>
+          <span className="flex gap-2"><span>Mã số: </span>{code}</span>
         </p>
       </div>
       <div className="flex gap-2">

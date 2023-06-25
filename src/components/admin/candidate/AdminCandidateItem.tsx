@@ -9,7 +9,7 @@ import CustomButtonDelete from "@/components/common/ButtonDelete";
 import { useMutationDeleteUser } from "@/pages/api/auth.api";
 import { useQueryClient } from "@tanstack/react-query";
 
-export const AdminCandidateItem = ({ ID, name, email, avatar }: IRegister) => {
+export const AdminCandidateItem = ({ ID, name, email, avatar, code }: IRegister) => {
   const [open, setOpen] = useState(false);
   const {mutate: mutateDeleteUser} = useMutationDeleteUser()
   const queryClient = useQueryClient();
@@ -52,6 +52,7 @@ export const AdminCandidateItem = ({ ID, name, email, avatar }: IRegister) => {
         <p className="flex flex-col pl-2.5 ">
           <span className="flex gap-2"><span>Thí sinh: </span>{name}</span>
           <span className="flex gap-2"><span>Email: </span>{email}</span>
+          <span className="flex gap-2"><span>Mã số: </span>{code}</span>
         </p>
       </div>
       <div className="flex gap-2">

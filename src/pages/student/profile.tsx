@@ -1,21 +1,21 @@
+import LayoutStudent from "@/components/layouts/LayoutStudent";
 import LayoutTeacher from "@/components/layouts/LayoutTeacher";
 import { currentMenuItemState } from "@/recoil/side-bar.recoil";
-import TeacherExamInviteView from "@/view/teacher/exam/TeacherExamInviteView";
+import ProfileMeView from "@/view/ProfileMeView";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 
-const TeacherScheduleExamInvite = () => {
-
+const StudentProfile = () => {
     const setCurrentMenuItem = useSetRecoilState(currentMenuItemState);
     useEffect(() => {
-        setCurrentMenuItem("exam-teacher");
+      setCurrentMenuItem("profile-student");
     }, []);
-
+    
     return (
-        <LayoutTeacher title="Teacher">
-            <TeacherExamInviteView />
-        </LayoutTeacher>
+        <LayoutStudent title="Student Profile">
+            <ProfileMeView />
+        </LayoutStudent>
     );
 };
 
-export default TeacherScheduleExamInvite;
+export default StudentProfile;

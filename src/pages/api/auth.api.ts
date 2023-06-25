@@ -9,6 +9,7 @@ const authApi = {
     getMe: () => apiClient.get("/api/auth/secured/me"),
     getListTeacher: (params: ParamsListUser) => apiClient.get("/api/auth/teachers", { params }),
     getListStudent: (params: ParamsListUser) => apiClient.get("/api/auth/students", { params }),
+    allStudents: () => apiClient.get("/api/auth/students"),
     updateUser: (data: FormUser) => {
         const formData = new FormData();
         formData.append('name', data.name);
@@ -20,6 +21,24 @@ const authApi = {
         formData.append('date_of_birth', data.date_of_birth);
 
         return apiClient.put("/api/auth/secured/update", formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+    },
+    registerUser: (data: any) => {
+        const formData = new FormData();
+        formData.append('name', data.name);
+        formData.append('password', data.password);
+        formData.append('address', data.address);
+        formData.append('phone_number', data.phone_number);
+        formData.append('code', data.code);
+        formData.append('date_of_birth', data.date_of_birth);
+        formData.append('avatar', data.avatar);
+        formData.append('role', data.role);
+        formData.append('email', data.email);
+
+        return apiClient.post("/api/auth/register", formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
@@ -37,7 +56,7 @@ export const useMutationLogin = () => {
 
 export const useMutationRegister = () => {
     return useMutation((data: IRegister) => {
-        return authApi.register(data)
+        return authApi.registerUser(data)
     })
 }
 
@@ -54,9 +73,6 @@ export const useQueryGetListTeacher = (
 ) => {
     return useQuery(['get-teacher', page, code],
         () => {
-            console.log('offset', LIMIT_ITEM * (page - 1),
-                ' limit: ', LIMIT_ITEM,
-                ' code: ', code,)
             return authApi.getListTeacher({
                 offset: LIMIT_ITEM * (page - 1),
                 limit: LIMIT_ITEM,
@@ -66,8 +82,9 @@ export const useQueryGetListTeacher = (
     )
 }
 
+
 export const useQueryGetListStudent = (
-    page?: number,
+    page: number,
     code?: string,
 ) => {
     return useQuery(['get-student', page, code],
@@ -77,6 +94,13 @@ export const useQueryGetListStudent = (
                 limit: LIMIT_ITEM,
                 code: code,
             })
+        })
+}
+
+export const useQueryGetAllStudent = () => {
+    return useQuery(['get-all-student'],
+        () => {
+            return authApi.allStudents()
         })
 }
 

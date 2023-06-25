@@ -67,15 +67,10 @@ const ProfileMeView = () => {
             newVal = Object.assign(rest, { date_of_birth: date_of_birth } , {password: password})
         }
 
-        mutate(newVal, {
-            onSuccess: () => {
-                router.push(routerConstant.admin.teacher.index)
-            }
-        })
+        mutate(newVal)
 
     }
     const handleChangeImage: UploadProps['onChange'] = ({ fileList: newFileList }) => {
-        console.log(123, newFileList)
         setValue('avatar', newFileList?.[0]?.response?.data?.file);
         setFileImage(newFileList);
     };
@@ -120,19 +115,6 @@ const ProfileMeView = () => {
                         number={1}
                     />
                     <Label text="Ngày tháng năm sinh:" />
-                    {/* <DatePickerCommon
-                        name="date_of_birth"
-                        control={control}
-                        isRequired={true}
-                        showTime={false}
-                        rules={{
-                            required: {
-                                value: true,
-                                message: "Đây là bắt buộc",
-                            },
-                        }}
-                        errors={errors}
-                    /> */}
                     <InputCommon
                         type='text'
                         name='date_of_birth'

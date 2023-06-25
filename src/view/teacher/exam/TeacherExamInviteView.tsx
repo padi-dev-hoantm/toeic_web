@@ -1,8 +1,7 @@
 import CustomButton from "@/components/common/Button";
 import SelectInputCommon from "@/components/common/SelectInputCommon";
-import { routerConstant } from "@/constant/routerConstant";
-import { useQueryGetListStudent } from "@/pages/api/auth.api";
-import { useMutationAddTakersToExam, useMutationDeleteUserFromExam, useMutationInviteExam, useQueryGetListExam, useQueryGetListTakersAdded } from "@/pages/api/exams";
+import { useQueryGetAllStudent } from "@/pages/api/auth.api";
+import { useMutationAddTakersToExam, useMutationDeleteUserFromExam, useMutationInviteExam, useQueryGetListTakersAdded } from "@/pages/api/exams";
 import { useQueryClient } from "@tanstack/react-query";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
@@ -17,7 +16,7 @@ const TeacherExamInviteView = () => {
 
     const router = useRouter()
     const examId = router.query.exam_id
-    const { data: dataStudent } = useQueryGetListStudent()
+    const { data: dataStudent } = useQueryGetAllStudent()
     const { data: dataListTakers, refetch } = useQueryGetListTakersAdded(Number(examId))
     const { mutate: mutateInvite } = useMutationAddTakersToExam()
     const { mutate: mutateDeleteUserInExam } = useMutationDeleteUserFromExam()
