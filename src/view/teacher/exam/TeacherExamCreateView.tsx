@@ -44,7 +44,7 @@ const TeacherExamCreateView = () => {
       const formData = new FormData();
       formData.append("files", file);
       const xhr = new XMLHttpRequest();
-      xhr.open("POST", "http://14.225.192.48/api/exams/file", true);
+      xhr.open("POST", "/api/exams/file", true);
       xhr.onload = function () {
         if (xhr.status === 200) {
           const response = xhr.responseText;

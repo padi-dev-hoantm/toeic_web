@@ -45,7 +45,6 @@ export const useQueryGetListExam = () => {
         () => {
             return examApi.listExam();
         },
-       // { cacheTime: Infinity, staleTime: Infinity },
     );
 }
 

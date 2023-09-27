@@ -6,7 +6,7 @@ import Cookies from 'universal-cookie';
 export function middleware(request: NextRequest) {
   const cookies = new Cookies();
   const jwt = cookies.get('jwt');
-  console.log(123, jwt)
+
   if(!jwt){
     return NextResponse.rewrite(routerConstant.login)
   }

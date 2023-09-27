@@ -22,14 +22,6 @@ export const useQueryGetExamSubmit = () => {
         () => {
             return examSubmitApi.getExamSubmit();
         },
-        // {
-        //     onSuccess: (response) => {
-        //         if (!response.data) {
-        //             alert('Bạn chưa làm bài thi nào, kết quả thi của bạn trống')
-        //             }
-        //     },
-        //     // cacheTime: Infinity, staleTime: Infinity
-        // },
     );
 }
 
@@ -39,7 +31,6 @@ export const useQueryGetAllResult = (score: number) => {
         () => {
             return examSubmitApi.adminGetAllResult({score: score});
         },
-        // { cacheTime: Infinity, staleTime: Infinity },
     );
 }
 
@@ -49,6 +40,5 @@ export const useQueryGetResultExam = (examId: number) => {
         () => {
             return examSubmitApi.teacherGetResultExam(examId);
         },
-        // { cacheTime: Infinity, staleTime: Infinity },
     );
 }
